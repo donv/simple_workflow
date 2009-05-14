@@ -3,7 +3,6 @@ Manifest.txt
 PostInstall.txt
 README.rdoc
 Rakefile
-lib/application_helper.rb
 lib/simple_workflow.rb
 script/console
 script/destroy

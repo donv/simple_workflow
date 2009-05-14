@@ -8,7 +8,7 @@ $hoe = Hoe.new('simple_workflow', RubyShoppe::VERSION) do |p|
   p.developer('Uwe Kubosch', 'uwe@kubosch.no')
   p.changes              = p.paragraphs_of("History.txt", 0..1).join("\n\n")
   p.post_install_message = 'PostInstall.txt' # TODO remove if post-install message not required
-  p.rubyforge_name       = p.name
+  p.rubyforge_name       = 'ruby-shoppe'
   p.extra_deps         = [
     ['rails','>= 2.3.2'],
   ]
