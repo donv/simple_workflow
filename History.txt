@@ -1,4 +1,10 @@
+== 0.0.2 2009-05-15
+
+=== Fixes
+* Added missing simple_workflow_helper.rb file to manifest
+
 == 0.0.1 2009-05-15
 
 * 1 major enhancement:
   * Initial release
+  

@@ -4,7 +4,7 @@ require File.dirname(__FILE__) + '/lib/simple_workflow'
 
 # Generate all the Rake tasks
 # Run 'rake -T' to see list of generated tasks (from gem root directory)
-$hoe = Hoe.new('simple_workflow', RubyShoppe::VERSION) do |p|
+$hoe = Hoe.new('simple_workflow', SimpleWorkflow::VERSION) do |p|
   p.developer('Uwe Kubosch', 'uwe@kubosch.no')
   p.changes              = p.paragraphs_of("History.txt", 0..1).join("\n\n")
   p.post_install_message = 'PostInstall.txt' # TODO remove if post-install message not required
