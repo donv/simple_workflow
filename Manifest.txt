@@ -1,0 +1,13 @@
+History.txt
+Manifest.txt
+PostInstall.txt
+README.rdoc
+Rakefile
+lib/application_helper.rb
+lib/ruby-shoppe.rb
+lib/simple_workflow.rb
+script/console
+script/destroy
+script/generate
+test/test_helper.rb
+test/test_ruby-shoppe.rb
