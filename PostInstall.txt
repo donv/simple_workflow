@@ -1,5 +1,5 @@
 
-For more information on ruby-shoppe, see http://ruby-shoppe.rubyforge.org
+For more information on simple_workflow, see http://ruby-shoppe.rubyforge.org
 
 NOTE: Change this information in PostInstall.txt 
 You can also delete it if you don't want it.

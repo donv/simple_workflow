@@ -1,3 +1,10 @@
+$:.unshift(File.dirname(__FILE__)) unless
+  $:.include?(File.dirname(__FILE__)) || $:.include?(File.expand_path(File.dirname(__FILE__)))
+
+module RubyShoppe
+  VERSION = '0.0.1'
+end
+
 module SimpleWorkflowHelper
   def image_button_to(image_source, title, options, html_options = {})
     image_submit_tag image_source, {:class => 'image-submit', :alt => title, :title => title,

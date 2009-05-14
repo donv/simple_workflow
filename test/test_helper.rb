@@ -1,3 +1,3 @@
 require 'stringio'
 require 'test/unit'
-require File.dirname(__FILE__) + '/../lib/ruby-shoppe'
+require File.dirname(__FILE__) + '/../lib/simple_workflow'
