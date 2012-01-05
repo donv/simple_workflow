@@ -14,7 +14,7 @@ module SimpleWorkflow::Helper
     if options.is_a? String
       return options + (options =~ /\?/ ? '&' : '?') + detour_options[:detour].map{|k,v| "detour[#{k}]=#{v}"}.join('&')
     else
-      detour_options.merge(options)
+      detour_options.update(options)
       if options[:layout] == false
         if params[:action] !~ /_no_layout$/
           detour_options[:detour].update({:action => params[:action] + '_no_layout'})
