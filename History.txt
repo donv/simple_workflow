@@ -1,7 +1,23 @@
+== 0.0.4 2012-01-05
+
+=== Fixes
+
+* Added missing gem activation code
+
+
+== 0.0.3 2012-01-05
+
+=== Fixes
+
+* Allow input to with_detour to be a URL string
+
+
 == 0.0.2 2009-05-15
 
 === Fixes
+
 * Added missing simple_workflow_helper.rb file to manifest
+
 
 == 0.0.1 2009-05-15
 

@@ -1,29 +1,27 @@
-require 'rubygems' unless ENV['NO_RUBYGEMS']
-%w[rake rake/clean fileutils newgem rubigen].each { |f| require f }
-require File.dirname(__FILE__) + '/lib/simple_workflow'
+require 'rake'
+require 'rake/clean'
+require File.dirname(__FILE__) + '/lib/simple_workflow/version'
 
-# Generate all the Rake tasks
-# Run 'rake -T' to see list of generated tasks (from gem root directory)
-$hoe = Hoe.new('simple_workflow', SimpleWorkflow::VERSION) do |p|
-  p.developer('Uwe Kubosch', 'uwe@kubosch.no')
-  p.changes              = p.paragraphs_of("History.txt", 0..1).join("\n\n")
-  p.post_install_message = 'PostInstall.txt' # TODO remove if post-install message not required
-  p.rubyforge_name       = 'ruby-shoppe'
-  p.extra_deps         = [
-    ['rails','>= 2.3.2'],
-  ]
-  p.extra_dev_deps = [
-    ['newgem', ">= #{::Newgem::VERSION}"]
-  ]
-  
-  p.clean_globs |= %w[**/.DS_Store tmp *.log]
-  path = (p.rubyforge_name == p.name) ? p.rubyforge_name : "\#{p.rubyforge_name}/\#{p.name}"
-  p.remote_rdoc_dir = File.join(path.gsub(/^#{p.rubyforge_name}\/?/,''), 'rdoc')
-  p.rsync_args = '-av --delete --ignore-errors'
+GEM_FILE = "simple_workflow-#{SimpleWorkflow::VERSION}.gem"
+GEM_SPEC_FILE = 'simple_workflow.gemspec'
+
+CLEAN.include('simple_workflow-*.gem', 'tmp')
+
+task :default => :gem
+
+desc "Generate a gem"
+task :gem => GEM_FILE
+
+file GEM_FILE => GEM_SPEC_FILE do
+  puts "Generating #{GEM_FILE}"
+  `gem build #{GEM_SPEC_FILE}`
 end
 
-require 'newgem/tasks' # load /tasks/*.rake
-Dir['tasks/**/*.rake'].each { |t| load t }
-
-# TODO - want other tests/tasks run by default? Add them to the list
-# task :default => [:spec, :features]
+desc "Push the gem to RubyGems"
+task :release => :gem do
+  output = `git status --porcelain`
+  raise "Workspace not clean!\n#{output}" unless output.empty?
+  sh "git tag #{SimpleWorkflow::VERSION}"
+  sh "git push --tags"
+  sh "gem push #{GEM_FILE}"
+end

@@ -1,8 +1,16 @@
 $:.unshift(File.dirname(__FILE__)) unless
   $:.include?(File.dirname(__FILE__)) || $:.include?(File.expand_path(File.dirname(__FILE__)))
 
-module SimpleWorkflow
-  VERSION = '0.0.2'
+require 'simple_workflow/version'
+require 'simple_workflow/helper'
+require 'simple_workflow/controller'
+require 'action_controller/base'
+
+module ApplicationHelper
+  include SimpleWorkflow::Helper
 end
 
-require 'simple_workflow/simple_workflow_helper'
+class ActionController::Base
+  include SimpleWorkflow::Helper
+  include SimpleWorkflow::Controller
+end
