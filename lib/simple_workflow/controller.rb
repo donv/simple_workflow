@@ -17,10 +17,10 @@ module SimpleWorkflow::Controller
   def store_detour(options, post = false)
     options[:request_method] = :post if post
     if session[:detours] && session[:detours].last == options
-      logger.debug "duplicate detour: #{options}"
+      logger.debug "duplicate detour: #{options.inspect}"
       return
     end
-    logger.debug "adding detour: #{options}"
+    logger.debug "adding detour: #{options.inspect}"
     session[:detours] ||= []
     session[:detours] << options
   end
