@@ -1,32 +1,37 @@
 = simple_workflow
 
-* http://github.com/#{github_username}/#{project_name}
+* http://github.com/donv/simple_workflow
 
 == DESCRIPTION:
 
-FIX (describe your package)
+extension to Rails to allow detours with returns.
 
 == FEATURES/PROBLEMS:
 
-* FIX (list of features or problems)
+* switch your "link_to" lines to "detour_to" and your controller "redirect_to" to "back_or_redirect_to" to allow users to return from whence they came.
 
 == SYNOPSIS:
 
-  FIX (code sample of usage)
+  detour_to :controller => :my_models, :action => :create
+  back_or_redirect_to :controller => :my_models, :action => :index
 
 == REQUIREMENTS:
 
-* FIX (list of requirements)
+* Rails
 
 == INSTALL:
 
-* FIX (sudo gem install, anything else)
+* gem install simple_workflow
+
+or in Gemfile
+
+gem 'simple_workflow'
 
 == LICENSE:
 
 (The MIT License)
 
-Copyright (c) 2009 FIXME full name
+Copyright (c) 2009 Uwe Kubosch
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
