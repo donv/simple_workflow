@@ -13,4 +13,5 @@ end
 class ActionController::Base
   include SimpleWorkflow::Helper
   include SimpleWorkflow::Controller
+  before_filter :store_detour_from_params
 end
