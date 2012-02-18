@@ -21,11 +21,11 @@ extension to Rails to allow detours with returns.
 
 == INSTALL:
 
-* gem install simple_workflow
+  gem install simple_workflow
 
 or in Gemfile
 
-gem 'simple_workflow'
+  gem 'simple_workflow'
 
 == LICENSE:
 
