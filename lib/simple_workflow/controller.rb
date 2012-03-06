@@ -46,8 +46,8 @@ module SimpleWorkflow::Controller
     return true
   end
 
-  def back_or_redirect_to(options)
-    back or redirect_to options
+  def back_or_redirect_to(*options)
+    back or redirect_to(*options)
   end
 
   def pop_detour
