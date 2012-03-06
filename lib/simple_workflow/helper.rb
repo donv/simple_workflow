@@ -9,18 +9,18 @@ module SimpleWorkflow::Helper
     link_to title, with_detour(options), html_options
   end
 
-  def with_detour(options)
-    detour_options = {:detour => params.reject { |k, v| [:detour, :return_from_detour].include? k.to_sym }}
+  def with_detour(options, back_options = {})
+    detour_options = {:detour => (params.merge(back_options)).reject { |k, v| [:detour, :return_from_detour].include? k.to_sym }}
     if options.is_a? String
       return options + (options =~ /\?/ ? '&' : '?') + detour_options[:detour].map{|k,v| "detour[#{k}]=#{v}"}.join('&')
     else
       detour_options.update(options)
       if options[:layout] == false
-        if params[:action] !~ /_no_layout$/
-          detour_options[:detour].update({:action => params[:action] + '_no_layout'})
+        if detour_options[:action] !~ /_no_layout$/
+          detour_options[:detour].update({:action => detour_options[:action] + '_no_layout'})
         end
       elsif params[:action] =~ /_no_layout$/
-        detour_options[:detour].update({:action => params[:action][0..-11]})
+        detour_options[:detour].update({:action => detour_options[:action][0..-11]})
       end
       detour_options
     end
