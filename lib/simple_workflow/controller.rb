@@ -1,4 +1,6 @@
 module SimpleWorkflow::Controller
+  ##
+  # Like ActionController::Base#redirect_to, but stores where we come from, enabling returning here later.
   def detour_to(options)
     store_detour(params)
     redirect_to(options)
@@ -43,7 +45,7 @@ module SimpleWorkflow::Controller
     else
       redirect_to detour
     end
-    return true
+    true
   end
 
   def back_or_redirect_to(*options)
