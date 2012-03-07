@@ -2,6 +2,7 @@
 
 * http://github.com/donv/simple_workflow
 * http://rubydoc.info/gems/simple_workflow
+* https://rubygems.org/gems/simple_workflow
 
 == DESCRIPTION:
 
