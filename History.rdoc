@@ -3,6 +3,7 @@
 === Internal
 
 * Removed obsolete manifest.txt and Postinstall.txt
+* Renamed History.txt to History.rdoc to reflect the internal format.
 
 
 == 0.2.1 2012-03-07
