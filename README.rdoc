@@ -1,10 +1,11 @@
 = simple_workflow
 
 * http://github.com/donv/simple_workflow
+* http://rubydoc.info/gems/simple_workflow
 
 == DESCRIPTION:
 
-extension to Rails to allow detours with returns.
+Extension to Rails to allow detours with returns.
 
 == FEATURES/PROBLEMS:
 
