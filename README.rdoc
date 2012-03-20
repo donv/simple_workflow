@@ -17,6 +17,16 @@ Extension to Rails to allow detours with returns.
   detour_to :controller => :my_models, :action => :create
   back_or_redirect_to :controller => :my_models, :action => :index
 
+In your tests:
+
+  def test_valid_login_redirects_as_specified
+      add_stored_detour "/bogus/location"
+      post :login, :user => { :login => "tesla", :password => "atest" }
+      assert_logged_in users(:tesla)
+      assert_response :redirect
+      assert_redirected_to "http://#{request.host}/bogus/location"
+    end
+
 == REQUIREMENTS:
 
 * Rails

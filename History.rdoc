@@ -1,3 +1,10 @@
+== 0.3.0 2012-03-20
+
+=== Features
+
+* Added test helper method "add_stored_detour" to simulate returning from a detour.
+
+
 == 0.2.2 2012-03-07
 
 === Internal

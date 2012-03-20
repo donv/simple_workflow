@@ -15,3 +15,7 @@ class ActionController::Base
   include SimpleWorkflow::Controller
   before_filter :store_detour_from_params
 end
+
+class ActiveSupport::TestCase
+  include SimpleWorkflow::Helper
+end
