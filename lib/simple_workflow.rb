@@ -1,10 +1,12 @@
 $:.unshift(File.dirname(__FILE__)) unless
   $:.include?(File.dirname(__FILE__)) || $:.include?(File.expand_path(File.dirname(__FILE__)))
 
+require 'action_controller/base'
+
 require 'simple_workflow/version'
 require 'simple_workflow/helper'
 require 'simple_workflow/controller'
-require 'action_controller/base'
+require 'simple_workflow/test_helper'
 
 module ApplicationHelper
   include SimpleWorkflow::Helper
@@ -17,5 +19,5 @@ class ActionController::Base
 end
 
 class ActiveSupport::TestCase
-  include SimpleWorkflow::Helper
+  include SimpleWorkflow::TestHelper
 end

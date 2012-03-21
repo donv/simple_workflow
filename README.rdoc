@@ -10,11 +10,19 @@ Extension to Rails to allow detours with returns.
 
 == FEATURES/PROBLEMS:
 
-* switch your "link_to" lines to "detour_to" and your controller "redirect_to" to "back_or_redirect_to" to allow users to return from whence they came.
+* switch your "link_to" lines to "detour_to" and your controller "redirect_to" to "back_or_redirect_to" to allow users
+  to return from whence they came.
 
 == SYNOPSIS:
 
+In views:
+
   detour_to :controller => :my_models, :action => :create
+  back_or_link_to :controller => :welcome, :action => :index
+  image_button_to :controller => :my_models, :action => :create
+
+In controllers:
+
   back_or_redirect_to :controller => :my_models, :action => :index
 
 In your tests:
