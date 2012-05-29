@@ -12,7 +12,7 @@ module SimpleWorkflow::Controller
 
   def rjs_redirect_to(options)
     @options = options
-    render :template => 'redirect', :layout => false
+    render :template => 'redirect', :layout => false, :formats => :js
   end
 
   def store_detour(options, post = false)
