@@ -26,10 +26,10 @@ module SimpleWorkflow::Helper
     end
   end
 
-  def image_detour_to(image_source, title, url_options, image_options = nil, post = false)
+  def image_detour_to(image_source, title, url_options, image_options = nil, link_options = nil)
     image_options ||= {:class => 'image-submit'}
     image_options.update :alt => title, :title => title
-    detour_to image_tag(image_source, image_options), url_options, post ? {:method => :post} : nil
+    detour_to image_tag(image_source, image_options), url_options, link_options
   end
 
   def image_link_to(image_source, title, url_options, image_options = nil, post = false)
