@@ -49,13 +49,13 @@ module SimpleWorkflow::Helper
     not session[:detours].nil?
   end
 
-  def back_or_link_to(title, options = nil)
+  def back_or_link_to(title, options = nil, html_options = nil)
     if session[:detours]
       options = {:return_from_detour => true}.update(session[:detours].last)
       options[:id] ||= nil
       logger.debug "linked return from detour: #{options.inspect}"
     end
-    link_to(title, options) if options
+    link_to(title, options, html_options) if options
   end
 
 end
