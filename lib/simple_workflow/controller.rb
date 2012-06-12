@@ -28,7 +28,7 @@ module SimpleWorkflow::Controller
       ss = ActiveSupport::Base64.encode64(Marshal.dump(session.to_hash)).size
       ws = ActiveSupport::Base64.encode64(Marshal.dump(session[:detours])).size
       break unless ws >= 2048 || (ss >= 3072 && session[:detours].size > 0)
-      logger.info "Workflow too large (#{ws}).  Dropping oldest detour."
+      logger.warn "Workflow too large (#{ws}).  Dropping oldest detour."
       session[:detours].shift
     end
     logger.debug "Added detour: #{options.inspect}, session: #{ss} bytes, workflow(#{session[:detours].size}): #{ws} bytes"
