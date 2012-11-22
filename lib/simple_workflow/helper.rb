@@ -11,19 +11,8 @@ module SimpleWorkflow::Helper
 
   def with_detour(options, back_options = {})
     detour_options = {:detour => (params.merge(back_options)).reject { |k, v| [:detour, :return_from_detour].include? k.to_sym }}
-    if options.is_a? String
-      return options + (options =~ /\?/ ? '&' : '?') + detour_options[:detour].map{|k,v| "detour[#{k}]=#{v}"}.join('&')
-    else
-      detour_options.update(options)
-      if options[:layout] == false
-        if detour_options[:action] !~ /_no_layout$/
-          detour_options[:detour].update({:action => detour_options[:action] + '_no_layout'})
-        end
-      elsif params[:action] =~ /_no_layout$/
-        detour_options[:detour].update({:action => detour_options[:action][0..-11]})
-      end
-      detour_options
-    end
+    url = url_for(options) if options.respond_to? :to_param
+    return url + (url =~ /\?/ ? '&' : '?') + detour_options[:detour].map{|k,v| "detour[#{k}]=#{v}"}.join('&')
   end
 
   def image_detour_to(image_source, title, url_options, image_options = nil, link_options = nil)
