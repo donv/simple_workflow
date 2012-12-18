@@ -10,9 +10,9 @@ module SimpleWorkflow::Helper
   end
 
   def with_detour(options, back_options = {})
-    detour_options = {:detour => (params.merge(back_options)).reject { |k, v| [:detour, :return_from_detour].include? k.to_sym }}
-    url = url_for(options) if options.respond_to? :to_param
-    return url + (url =~ /\?/ ? '&' : '?') + detour_options[:detour].map{|k,v| "detour[#{k}]=#{v}"}.join('&')
+    detour = params.merge(back_options).reject { |k, v| [:detour, :return_from_detour].include? k.to_sym }
+    url = url_for(options)
+    return url + (url =~ /\?/ ? '&' : '?') + detour.to_param('detour')
   end
 
   def image_detour_to(image_source, title, url_options, image_options = nil, link_options = nil)
