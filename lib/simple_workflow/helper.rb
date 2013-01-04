@@ -30,8 +30,7 @@ module SimpleWorkflow::Helper
   def image_link_to_remote(image_source, title, link_options, image_options = nil, post = false)
     image_options ||= {:class => 'image-submit'}
     image_options.update :alt => title, :title => title
-    with_params = link_options.delete(:with)
-    link_to image_tag(image_source, image_options), :url => link_options, :with => with_params, :html => (post ? {:method => :post} : {}).merge(:remote => true)
+    link_to image_tag(image_source, image_options), link_options, (post ? {:method => :post} : {}).merge(:remote => true)
   end
 
   def detour?
