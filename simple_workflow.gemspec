@@ -12,5 +12,5 @@ Gem::Specification.new do |s|
   s.description = %Q{Expands Ruby On Rails to allow simple detour workflows.}
   s.rubyforge_project = "ruby-shoppe"
   s.files = FileList['[A-Z]*', 'lib/**/*', 'test/**/*'].to_a
-  s.add_dependency('rails','>= 2.3.2')
+  s.add_dependency('rails','>= 3.0.0')
 end
