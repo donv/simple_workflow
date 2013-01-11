@@ -1,8 +1,16 @@
+== 0.4.5 2012-11-22
+
+=== Fixes
+
+* Changed image_link_to and image_link_to_remote to take link_options instead of just post => true/false.
+  Use ":method => :post" for post instead of "true".
+
+
 == 0.3.5 2012-11-22
 
 === Fixes
 
-* Changes detour_to to accept all url forms that url_for accepts.
+* Changed detour_to to accept all url forms that url_for accepts.
 
 
 == 0.3.1 2012-03-21

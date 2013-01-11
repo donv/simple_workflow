@@ -21,16 +21,26 @@ module SimpleWorkflow::Helper
     detour_to image_tag(image_source, image_options), url_options, link_options
   end
 
-  def image_link_to(image_source, title, url_options, image_options = nil, post = false)
+  def image_link_to(image_source, title, url_options, image_options = nil, link_options = nil)
+    if link_options == true
+      link_options = {:method => :post}
+    elsif link_options == false
+      link_options = nil
+    end
     image_options ||= {:class => 'image-submit'}
     image_options.update :alt => title, :title => title
-    link_to image_tag(image_source, image_options), url_options, post ? {:method => :post} : nil
+    link_to image_tag(image_source, image_options), url_options, link_options
   end
 
-  def image_link_to_remote(image_source, title, link_options, image_options = nil, post = false)
+  def image_link_to_remote(image_source, title, link_options, image_options = nil, html_options = {})
+    if html_options == true
+      html_options = {:method => :post}
+    elsif html_options == false
+      html_options = {}
+    end
     image_options ||= {:class => 'image-submit'}
     image_options.update :alt => title, :title => title
-    link_to image_tag(image_source, image_options), link_options, (post ? {:method => :post} : {}).merge(:remote => true)
+    link_to image_tag(image_source, image_options), link_options, html_options.merge(:remote => true)
   end
 
   def detour?
