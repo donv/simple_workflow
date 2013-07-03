@@ -6,7 +6,11 @@ module SimpleWorkflow::Helper
   end
 
   def detour_to(title, options, html_options = nil)
-    link_to title, with_detour(options), html_options
+    link_with_detour = link_to title, with_detour(options), html_options
+    if link_with_detour.size > 4096 # URL maximum size overflow
+      return link_to title, options, html_options
+    end
+    link_with_detour
   end
 
   def with_detour(options, back_options = {})

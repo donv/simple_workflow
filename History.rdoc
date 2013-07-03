@@ -1,3 +1,10 @@
+== 0.4.5 2013-07-03
+
+=== Fixes
+
+* Protect against generating too long URLs > 4096 characters.
+
+
 == 0.4.4 2013-07-03
 
 === Fixes
