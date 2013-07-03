@@ -9,7 +9,7 @@ CLEAN.include('simple_workflow-*.gem', 'tmp')
 
 task :default => :gem
 
-desc "Generate a gem"
+desc 'Generate a gem'
 task :gem => GEM_FILE
 
 file GEM_FILE => GEM_SPEC_FILE do
@@ -17,11 +17,11 @@ file GEM_FILE => GEM_SPEC_FILE do
   `gem build #{GEM_SPEC_FILE}`
 end
 
-desc "Push the gem to RubyGems"
+desc 'Push the gem to RubyGems'
 task :release => :gem do
   output = `git status --porcelain`
   raise "Workspace not clean!\n#{output}" unless output.empty?
   sh "git tag #{SimpleWorkflow::VERSION}"
-  sh "git push --tags"
+  sh 'git push --tags'
   sh "gem push #{GEM_FILE}"
 end

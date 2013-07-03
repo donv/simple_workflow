@@ -30,6 +30,7 @@ module SimpleWorkflow::Controller
       break unless ws >= 2048 || (ss >= 3072 && session[:detours].size > 0)
       logger.warn "Workflow too large (#{ws}).  Dropping oldest detour."
       session[:detours].shift
+      reset_workflow if session[:detours].empty?
     end
     logger.debug "Added detour: #{options.inspect}, session: #{ss} bytes, workflow(#{session[:detours].size}): #{ws} bytes"
   end
