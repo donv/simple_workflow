@@ -1,3 +1,17 @@
+== 1.0.1 2013-12-23
+
+=== Fixes
+
+* The second argument to with_detour now overrides the origin path completely instead of merging with the origin params.
+
+
+== 1.0.0 2013-12-02
+
+=== Features
+
+* Stable release!
+
+
 == 0.4.5 2013-07-03
 
 === Fixes

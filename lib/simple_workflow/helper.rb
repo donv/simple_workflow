@@ -23,8 +23,8 @@ module SimpleWorkflow::Helper
     link_with_detour
   end
 
-  def with_detour(options, back_options = {})
-    detour = params.merge(back_options).reject { |k, v| [:detour, :return_from_detour].include? k.to_sym }
+  def with_detour(options, back_options = nil)
+    detour = back_options || params.reject { |k, v| [:detour, :return_from_detour].include? k.to_sym }
     url = url_for(options)
     return url + (url =~ /\?/ ? '&' : '?') + detour.to_param('detour')
   end
