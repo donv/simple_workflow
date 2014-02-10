@@ -44,22 +44,38 @@ module SimpleWorkflow::Controller
     end
   end
   
-  def back
+  def back(response_status_and_flash)
     return false if session[:detours].nil?
     detour = pop_detour
     post = detour.delete(:request_method) == :post
     if post
+      set_flash(response_status_and_flash)
       redirect_to_post(detour)
     else
-      redirect_to detour
+      redirect_to detour, response_status_and_flash
     end
     true
   end
   
-  def back_or_redirect_to(*options)
-    back or redirect_to(*options)
+  def back_or_redirect_to(options = {}, response_status_and_flash = {})
+    back(response_status_and_flash) or redirect_to(options, response_status_and_flash)
   end
-  
+
+  def set_flash(response_status_and_flash)
+    if (alert = response_status_and_flash.delete(:alert))
+      flash[:alert] = alert
+    end
+
+    if (notice = response_status_and_flash.delete(:notice))
+      flash[:notice] = notice
+    end
+
+    if (other_flashes = response_status_and_flash.delete(:flash))
+      flash.update(other_flashes)
+    end
+  end
+  private :set_flash
+
   def pop_detour
     detours = session[:detours]
     return nil unless detours

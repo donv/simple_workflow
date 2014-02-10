@@ -1,3 +1,10 @@
+== 1.0.1 2014-02-10
+
+=== Fixes
+
+* The second argument to back_or_redirect_to now allows for setting flash messages.
+
+
 == 1.0.1 2013-12-23
 
 === Fixes
