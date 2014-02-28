@@ -5,19 +5,19 @@ module SimpleWorkflow::Helper
                                     :onclick => "form.action='#{url_for(options)}'"}.update(html_options)
   end
 
-  def detour_to(title, options, html_options = nil, &block)
+  def detour_to(title, options = nil, html_options = nil, &block)
     if block
       html_options = options
       options = title
       link_with_detour = link_to(with_detour(options), html_options, &block)
     else
-      link_with_detour = link_to title, with_detour(options), html_options
+      link_with_detour = link_to(title, with_detour(options), html_options)
     end
     if link_with_detour.size > 4096 # URL maximum size overflow
       if block
         link_with_detour = link_to(options, html_options, &block)
       else
-        link_with_detour = link_to title, with_detour(options), html_options
+        link_with_detour = link_to(title, options, html_options)
       end
     end
     link_with_detour

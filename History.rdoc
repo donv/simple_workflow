@@ -1,3 +1,11 @@
+== 1.0.3 2014-02-28
+
+=== Fixes
+
+* The second argument to detour_to is optional if a block is given.
+* Fixed URL overflow error when detour URL was > 4096 characters.
+
+
 == 1.0.1 2014-02-10
 
 === Fixes
