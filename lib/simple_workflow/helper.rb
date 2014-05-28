@@ -7,8 +7,8 @@ module SimpleWorkflow::Helper
 
   def detour_to(title, options = nil, html_options = nil, &block)
     if block
-      html_options = options
-      options = title
+      html_options     = options
+      options          = title
       link_with_detour = link_to(with_detour(options), html_options, &block)
     else
       link_with_detour = link_to(title, with_detour(options), html_options)
@@ -23,10 +23,17 @@ module SimpleWorkflow::Helper
     link_with_detour
   end
 
-  def with_detour(options, back_options = nil)
-    detour = back_options || params.reject { |k, v| [:detour, :return_from_detour].include? k.to_sym }
+  # Takes a link destination and augments it with the current page as origin.
+  # If the optional second argument is given, it is used as the origin.
+  # If the given origin is only an anchor, it is added to the current page.
+  def with_detour(options, origin = origin_options)
+    origin.update(origin_options) if origin.keys == [:anchor]
     url = url_for(options)
-    return url + (url =~ /\?/ ? '&' : '?') + detour.to_param('detour')
+    url + (url =~ /\?/ ? '&' : '?') + origin.to_param('detour')
+  end
+
+  def origin_options
+    params.reject { |k, v| [:detour, :return_from_detour].include? k.to_sym }
   end
 
   def image_detour_to(image_source, title, url_options, image_options = nil, link_options = nil)
@@ -63,7 +70,7 @@ module SimpleWorkflow::Helper
 
   def back_or_link_to(title, options = nil, html_options = nil)
     if session[:detours]
-      options = {:return_from_detour => true}.update(session[:detours].last)
+      options      = {:return_from_detour => true}.update(session[:detours].last)
       options[:id] ||= nil
       logger.debug "linked return from detour: #{options.inspect}"
     end
