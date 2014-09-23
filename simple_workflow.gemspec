@@ -13,5 +13,5 @@ Gem::Specification.new do |s|
   s.rubyforge_project = 'donv/simple_workflow'
   s.licenses = %w(MIT)
   s.files = FileList['[A-Z]*', 'lib/**/*', 'test/**/*'].to_a
-  s.add_dependency('rails','>= 3.0.0')
+  s.add_dependency('rails','~>4.0')
 end

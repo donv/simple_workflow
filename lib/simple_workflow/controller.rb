@@ -16,6 +16,7 @@ module SimpleWorkflow::Controller
   end
   
   def store_detour(options, post = false)
+    options = options.dup.permit!.to_h if options.is_a?(ActionController::Parameters)
     options[:request_method] = :post if post
     if session[:detours] && session[:detours].last == options
       logger.debug "Ignored duplicate detour: #{options.inspect}"
