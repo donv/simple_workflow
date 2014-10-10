@@ -1,21 +1,22 @@
-{<img src="https://travis-ci.org/donv/simple_workflow.svg?branch=master" alt="Build Status" style="float: right" />}[https://travis-ci.org/donv/simple_workflow]
+| | [![Build Status](https://travis-ci.org/donv/simple_workflow.svg?branch=master)](https://travis-ci.org/donv/simple_workflow) |
 
-= simple_workflow
+simple_workflow
+===============
 
 * http://github.com/donv/simple_workflow
 * http://rubydoc.info/gems/simple_workflow
 * https://rubygems.org/gems/simple_workflow
 
-== DESCRIPTION:
+## DESCRIPTION:
 
 Extension to Rails to allow detours with returns.
 
-== FEATURES/PROBLEMS:
+## FEATURES/PROBLEMS:
 
 * switch your "link_to" lines to "detour_to" and your controller "redirect_to" to "back_or_redirect_to" to allow users
   to return from whence they came.
 
-== SYNOPSIS:
+## SYNOPSIS:
 
 In views:
 
@@ -39,11 +40,11 @@ In your tests:
       assert_redirected_to "http://#{request.host}/bogus/location"
     end
 
-== REQUIREMENTS:
+## REQUIREMENTS:
 
 * Rails
 
-== INSTALL:
+## INSTALL:
 
   gem install simple_workflow
 
@@ -51,7 +52,7 @@ or in Gemfile
 
   gem 'simple_workflow'
 
-== LICENSE:
+## LICENSE:
 
 (The MIT License)
 
