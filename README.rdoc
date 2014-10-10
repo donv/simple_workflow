@@ -1,3 +1,5 @@
+{<img src="https://travis-ci.org/donv/simple_workflow.svg?branch=master" alt="Build Status" style="float: right" />}[https://travis-ci.org/donv/simple_workflow]
+
 = simple_workflow
 
 * http://github.com/donv/simple_workflow
