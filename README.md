@@ -1,4 +1,6 @@
-| | [![Build Status](https://travis-ci.org/donv/simple_workflow.svg?branch=master)](https://travis-ci.org/donv/simple_workflow) |
+<div style="float: right">
+[![Build Status](https://travis-ci.org/donv/simple_workflow.svg?branch=master)](https://travis-ci.org/donv/simple_workflow)
+</div>
 
 simple_workflow
 ===============
