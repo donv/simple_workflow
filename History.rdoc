@@ -1,3 +1,17 @@
+== 1.0.6 2014-10-10
+
+=== Fixes
+
+* Fixes use of symbol key for "id" parameter.
+
+
+== 1.0.5 2014-09-13
+
+=== Feature
+
+* Updated to support Rails 4 and drop support for Rails 3.
+
+
 == 1.0.4 2014-02-28
 
 === Feature

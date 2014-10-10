@@ -1,8 +1,9 @@
 require 'rake'
 require 'rake/clean'
+require 'rake/testtask'
 require File.dirname(__FILE__) + '/lib/simple_workflow/version'
 
-GEM_FILE = "simple_workflow-#{SimpleWorkflow::VERSION}.gem"
+GEM_FILE      = "simple_workflow-#{SimpleWorkflow::VERSION}.gem"
 GEM_SPEC_FILE = 'simple_workflow.gemspec'
 
 CLEAN.include('simple_workflow-*.gem', 'tmp')
@@ -25,3 +26,10 @@ task :release => :gem do
   sh 'git push --tags'
   sh "gem push #{GEM_FILE}"
 end
+
+Rake::TestTask.new do |t|
+  t.libs << 'test'
+  t.test_files = FileList['test/*_test.rb']
+  t.verbose    = true
+end
+
