@@ -1,6 +1,7 @@
-<a href="https://travis-ci.org/donv/simple_workflow" style="float: right"><img src="https://camo.githubusercontent.com/3a3e62e47430027c77570acf5991ff6181de12c4/68747470733a2f2f7472617669732d63692e6f72672f646f6e762f73696d706c655f776f726b666c6f772e7376673f6272616e63683d6d6173746572" alt="Build Status" data-canonical-src="https://travis-ci.org/donv/simple_workflow.svg?branch=master" style="max-width:100%;"></a>
 simple_workflow
 ===============
+
+[![Build Status](https://travis-ci.org/donv/simple_workflow.svg?branch=master)](https://travis-ci.org/donv/simple_workflow)
 
 * http://github.com/donv/simple_workflow
 * http://rubydoc.info/gems/simple_workflow
