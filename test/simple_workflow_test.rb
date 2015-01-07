@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/test_helper.rb'
 
-class SimpleWorkflowTest < Test::Unit::TestCase
+class SimpleWorkflowTest < MiniTest::Test
   include SimpleWorkflow::Helper
 
   def setup

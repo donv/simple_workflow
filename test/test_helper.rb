@@ -1,5 +1,4 @@
-require 'stringio'
-require 'test/unit'
 require 'rubygems'
+require 'bundler/setup'
+require 'minitest/autorun'
 require File.dirname(__FILE__) + '/../lib/simple_workflow'
-require 'active_support/core_ext'

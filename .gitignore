@@ -1,4 +1,5 @@
 *~
 .idea
-simple_workflow-*.gem
+/Gemfile.lock
 /log
+/simple_workflow-*.gem

@@ -4,17 +4,17 @@ module SimpleWorkflow::Controller
     store_detour(params)
     redirect_to(options)
   end
-  
+
   def rjs_detour_to(options)
     store_detour(params, request.post?)
     rjs_redirect_to(options)
   end
-  
+
   def rjs_redirect_to(options)
     @options = options
     render :template => 'redirect', :layout => false, :formats => :js
   end
-  
+
   def store_detour(options, post = false)
     options = options.dup.permit!.to_h if options.is_a?(ActionController::Parameters)
     options[:request_method] = :post if post
@@ -24,18 +24,30 @@ module SimpleWorkflow::Controller
     end
     session[:detours] ||= []
     session[:detours] << options
-    ss = ws = nil
-    loop do
-      ss = Base64.encode64(Marshal.dump(session.to_hash)).size
-      ws = Base64.encode64(Marshal.dump(session[:detours])).size
-      break unless ws >= 2048 || (ss >= 3072 && session[:detours].size > 0)
-      logger.warn "Workflow too large (#{ws}).  Dropping oldest detour."
-      session[:detours].shift
-      reset_workflow if session[:detours].empty?
+
+    if Backlog::Application.config.session_store == ActionDispatch::Session::CookieStore
+      encryptor = cookies.signed_or_encrypted.instance_variable_get(:@encryptor)
+      ss = ws = nil
+      loop do
+        ser_val = cookies.signed_or_encrypted.send(:serialize, nil, session.to_hash)
+        new_value = encryptor.encrypt_and_sign(ser_val)
+        ss = new_value.size
+        wf_ser_val = cookies.signed_or_encrypted.send(:serialize, nil, session[:detours])
+        wf_crypt_val = encryptor.encrypt_and_sign(wf_ser_val)
+        ws = wf_crypt_val.size
+        puts "ss: #{ss}"
+        puts "ws: #{ws}"
+        break unless ws >= 2048 || (ss >= 3072 && session[:detours] && session[:detours].size > 0)
+        logger.warn "Workflow too large (#{ws}).  Dropping oldest detour."
+        session[:detours].shift
+        reset_workflow if session[:detours].empty?
+      end
+      logger.debug "session: #{ss} bytes, workflow(#{session[:detours].try(:size) || 0}): #{ws} bytes"
     end
-    logger.debug "Added detour: #{options.inspect}, session: #{ss} bytes, workflow(#{session[:detours].size}): #{ws} bytes"
+
+    logger.debug "Added detour (#{session[:detours].try(:size) || 0}): #{options.inspect}"
   end
-  
+
   def store_detour_from_params
     if params[:detour]
       store_detour(params[:detour])
@@ -44,7 +56,7 @@ module SimpleWorkflow::Controller
       pop_detour
     end
   end
-  
+
   def back(response_status_and_flash)
     return false if session[:detours].nil?
     detour = pop_detour
@@ -57,7 +69,7 @@ module SimpleWorkflow::Controller
     end
     true
   end
-  
+
   def back_or_redirect_to(options = {}, response_status_and_flash = {})
     back(response_status_and_flash) or redirect_to(options, response_status_and_flash)
   end
@@ -101,5 +113,5 @@ module SimpleWorkflow::Controller
 </html>
 EOF
   end
-    
+
 end
