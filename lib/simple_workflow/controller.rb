@@ -35,8 +35,6 @@ module SimpleWorkflow::Controller
         wf_ser_val = cookies.signed_or_encrypted.send(:serialize, nil, session[:detours])
         wf_crypt_val = encryptor.encrypt_and_sign(wf_ser_val)
         ws = wf_crypt_val.size
-        puts "ss: #{ss}"
-        puts "ws: #{ws}"
         break unless ws >= 2048 || (ss >= 3072 && session[:detours] && session[:detours].size > 0)
         logger.warn "Workflow too large (#{ws}).  Dropping oldest detour."
         session[:detours].shift
