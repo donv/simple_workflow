@@ -25,7 +25,7 @@ module SimpleWorkflow::Controller
     session[:detours] ||= []
     session[:detours] << options
 
-    if Backlog::Application.config.session_store == ActionDispatch::Session::CookieStore
+    if Rails.application.config.session_store == ActionDispatch::Session::CookieStore
       encryptor = cookies.signed_or_encrypted.instance_variable_get(:@encryptor)
       ss = ws = nil
       loop do
