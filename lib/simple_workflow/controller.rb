@@ -30,15 +30,12 @@ module SimpleWorkflow::Controller
 
   def remove_old_detours
     if Rails.application.config.session_store == ActionDispatch::Session::CookieStore
-      encryptor = cookies.signed_or_encrypted.instance_variable_get(:@encryptor)
       ss = ws = nil
       loop do
         ser_val = cookies.signed_or_encrypted.send(:serialize, nil, session.to_hash)
-        new_value = encryptor.encrypt_and_sign(ser_val)
-        ss = new_value.size
+        ss = encryptor.encrypt_and_sign(ser_val).size
         wf_ser_val = cookies.signed_or_encrypted.send(:serialize, nil, session[:detours])
-        wf_crypt_val = encryptor.encrypt_and_sign(wf_ser_val)
-        ws = wf_crypt_val.size
+        ws = encryptor.encrypt_and_sign(wf_ser_val).size
         break unless ws >= 2048 || (ss >= 3072 && session[:detours] && session[:detours].size > 0)
         logger.warn "Workflow too large (#{ws}/#{ss}).  Dropping oldest detour."
         session[:detours].shift
@@ -47,6 +44,19 @@ module SimpleWorkflow::Controller
       logger.debug "session: #{ss} bytes, workflow(#{session[:detours].try(:size) || 0}): #{ws} bytes"
     end
   end
+
+  def encryptor
+    return @simple_workflow_encryptor if @simple_workflow_encryptor
+    @simple_workflow_encryptor = cookies.signed_or_encrypted.instance_variable_get(:@encryptor)
+    return @simple_workflow_encryptor if @simple_workflow_encryptor
+    secret_key_base = Rails.application.config.secret_key_base
+    key_generator = ActiveSupport::KeyGenerator.new(secret_key_base, iterations: 1000)
+    key_generator = ActiveSupport::CachingKeyGenerator.new(key_generator)
+    secret = key_generator.generate_key('encrypted cookie')
+    sign_secret = key_generator.generate_key('signed encrypted cookie')
+    @simple_workflow_encryptor = ActiveSupport::MessageEncryptor.new(secret, sign_secret)
+  end
+  private :encryptor
 
   def store_detour_from_params
     if params[:detour]
