@@ -40,7 +40,7 @@ module SimpleWorkflow::Controller
         wf_crypt_val = encryptor.encrypt_and_sign(wf_ser_val)
         ws = wf_crypt_val.size
         break unless ws >= 2048 || (ss >= 3072 && session[:detours] && session[:detours].size > 0)
-        logger.warn "Workflow too large (#{ws}).  Dropping oldest detour."
+        logger.warn "Workflow too large (#{ws}/#{ss}).  Dropping oldest detour."
         session[:detours].shift
         reset_workflow if session[:detours].empty?
       end
