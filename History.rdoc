@@ -1,3 +1,10 @@
+== 1.0.11 2015-01-22
+
+=== Fixes
+
+* Ensure we have a secret token.
+
+
 == 1.0.10 2015-01-22
 
 === Fixes
