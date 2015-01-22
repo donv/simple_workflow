@@ -24,7 +24,11 @@ module SimpleWorkflow::Controller
     end
     session[:detours] ||= []
     session[:detours] << options
+    remove_old_detours
+    logger.debug "Added detour (#{session[:detours].try(:size) || 0}): #{options.inspect}"
+  end
 
+  def remove_old_detours
     if Rails.application.config.session_store == ActionDispatch::Session::CookieStore
       encryptor = cookies.signed_or_encrypted.instance_variable_get(:@encryptor)
       ss = ws = nil
@@ -42,8 +46,6 @@ module SimpleWorkflow::Controller
       end
       logger.debug "session: #{ss} bytes, workflow(#{session[:detours].try(:size) || 0}): #{ws} bytes"
     end
-
-    logger.debug "Added detour (#{session[:detours].try(:size) || 0}): #{options.inspect}"
   end
 
   def store_detour_from_params
