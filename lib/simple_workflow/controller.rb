@@ -49,7 +49,9 @@ module SimpleWorkflow::Controller
     return @simple_workflow_encryptor if @simple_workflow_encryptor
     @simple_workflow_encryptor = cookies.signed_or_encrypted.instance_variable_get(:@encryptor)
     return @simple_workflow_encryptor if @simple_workflow_encryptor
-    secret_key_base = Rails.application.config.secret_key_base
+    secret_key_base = Rails.application.config.secret_key_base ||
+        Rails.application.config.secret_token ||
+        SecureRandom.hex(64)
     key_generator = ActiveSupport::KeyGenerator.new(secret_key_base, iterations: 1000)
     key_generator = ActiveSupport::CachingKeyGenerator.new(key_generator)
     secret = key_generator.generate_key('encrypted cookie')
