@@ -9,6 +9,9 @@ rvm:
   - jruby-9.0.1.0
   - 2.0.0
 
+env:
+  - JRUBY_OPTS="--dev --debug"
+
 before_install:
   - gem query -i -n '^bundler$' >/dev/null || gem install --no-ri --no-rdoc bundler
   - bundle install
