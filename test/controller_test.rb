@@ -26,7 +26,7 @@ class ControllerTest < MiniTest::Test
   end
 
   # TODO(uwe): Remove.  The method does nothing.  Just a stub for compatability.
-  def test_store_detour_from_params
+  def test_deprecated_store_detour_from_params
     store_detour_from_params
     assert_equal({}, session)
   end
