@@ -1,0 +1,2 @@
+require_relative 'common.gemfile'
+gem 'rails', '~>4.2.6'
