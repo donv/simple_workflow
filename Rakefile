@@ -8,7 +8,7 @@ GEM_SPEC_FILE = 'simple_workflow.gemspec'
 
 CLEAN.include('simple_workflow-*.gem', 'tmp')
 
-task default: :gem
+task default: :test
 
 desc 'Generate a gem'
 task gem: GEM_FILE
