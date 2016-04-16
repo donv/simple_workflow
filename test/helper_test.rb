@@ -5,7 +5,7 @@ class HelperTest < MiniTest::Test
 
   def test_with_detour
     assert_equal '?detour%5Baction%5D=myaction&detour%5Bcontroller%5D=mycontroller&detour%5Bid%5D=42&detour%5Bquery%5D%5Bnested%5D=criterium',
-                 with_detour('')
+        with_detour('')
   end
 
   private

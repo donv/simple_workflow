@@ -1,5 +1,6 @@
 *~
 .idea
+/coverage
 /Gemfile.lock
 /log
 /simple_workflow-*.gem
