@@ -1,7 +1,6 @@
 require 'simple_workflow/detour'
 
 module SimpleWorkflow::Controller
-  extend Gem::Deprecate
   include SimpleWorkflow::Detour
 
   # Like ActionController::Base#redirect_to, but stores the location we come from, enabling returning here later.
@@ -26,10 +25,10 @@ module SimpleWorkflow::Controller
     store_detour_in_session(session, options)
   end
 
-  # FIXME(uwe):  Add test
   def store_detour_from_params
   end
-  deprecate :store_detour_from_params, :none, 2016, 11 # TODO(uwe)
+  deprecate :store_detour_from_params,
+      deprecator: ActiveSupport::Deprecation.new('1.2', 'SimpleWorkflow') # TODO(uwe)
 
   def back(response_status_and_flash)
     return false if session[:detours].nil?

@@ -7,32 +7,33 @@ simple_workflow
 * http://rubydoc.info/gems/simple_workflow
 * https://rubygems.org/gems/simple_workflow
 
-## DESCRIPTION:
+## DESCRIPTION
 
-Extension to Rails to allow detours with returns.
+Extension to Rails to allow simple workflow browser navigation using detours
+with returns.
 
-## FEATURES/PROBLEMS:
+## FEATURES
 
-* switch your "link_to" lines to "detour_to" and your controller "redirect_to" to "back_or_redirect_to" to allow users
-  to return from whence they came.
+* switch your "link_to" lines to "detour_to" and your controller "redirect_to"
+  to "back_or_redirect_to" to allow users to return from whence they came.
 
 ## SYNOPSIS:
 
 In views:
 
-  detour_to :controller => :my_models, :action => :create
-  back_or_link_to :controller => :welcome, :action => :index
-  image_button_to :controller => :my_models, :action => :create
+    detour_to :controller => :my_models, :action => :create
+    back_or_link_to :controller => :welcome, :action => :index
+    image_button_to :controller => :my_models, :action => :create
 
-  link_to 'Link with custom origin', with_detour(destination_path, origin_path)
+    link_to 'Link with custom origin', with_detour(destination_path, origin_path)
 
 In controllers:
 
-  back_or_redirect_to :controller => :my_models, :action => :index
+    back_or_redirect_to :controller => :my_models, :action => :index
 
 In your tests:
 
-  def test_valid_login_redirects_as_specified
+    def test_valid_login_redirects_as_specified
       add_stored_detour "/bogus/location"
       post :login, :user => { :login => "tesla", :password => "atest" }
       assert_logged_in users(:tesla)
@@ -40,19 +41,20 @@ In your tests:
       assert_redirected_to "http://#{request.host}/bogus/location"
     end
 
-## REQUIREMENTS:
+## REQUIREMENTS
 
-* Rails
+* Ruby 2.1 or newer.  JRuby supported!
+* Rails 4.x
 
-## INSTALL:
+## INSTALL
 
-  gem install simple_workflow
+    gem install simple_workflow
 
 or in Gemfile
 
-  gem 'simple_workflow'
+    gem 'simple_workflow'
 
-## LICENSE:
+## LICENSE
 
 (The MIT License)
 

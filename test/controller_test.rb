@@ -10,7 +10,11 @@ class ControllerTest < MiniTest::Test
     @cookies = ActionDispatch::Cookies::CookieJar.new(ActiveSupport::KeyGenerator.new('secret'), nil, false, options)
     @logger = Rails.logger
     @session = {}
-    Rails.app_class = TestApp
+    # TODO(uwe):  Remove when we stop testing Rails 4.1
+    if Rails.version !~ /^4\.1\./
+      Rails.app_class = TestApp
+    end
+    # ODOT
   end
 
   def test_store_detour
@@ -21,6 +25,12 @@ class ControllerTest < MiniTest::Test
     assert_equal({detours: [location]}, session)
   end
 
+  # TODO(uwe): Remove.  The method does nothing.  Just a stub for compatability.
+  def test_store_detour_from_params
+    store_detour_from_params
+    assert_equal({}, session)
+  end
+  # ODOT
 end
 
 class TestApp < Rails::Application

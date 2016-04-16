@@ -10,7 +10,7 @@ rvm:
 
 jdk:
   - oraclejdk8
-  - oraclejdk9
+#  - oraclejdk9
 
 env:
   - JRUBY_OPTS="--dev --debug"
