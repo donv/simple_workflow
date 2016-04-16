@@ -41,7 +41,7 @@ class MiddlewareTest < MiniTest::Test
 
   def test_detour_cleanup
     _, env, _ = @stack.call env_for('/?detour[controller]=test_first')
-    100.times do |i|
+    (50..99).each do |i|
       _, env, _ = @stack.call env_for("/?detour[controller]=test_#{i}",
           'rack.session' => env['rack.session'],
           'rack.session.options' => env['rack.session.options']
