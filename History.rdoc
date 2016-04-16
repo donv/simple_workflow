@@ -4,7 +4,7 @@
 
 * Rewrite as Rails Engine middleware
 * Add support for Ruby 2.3 and JRuby 9000
-* Require Ruby 2.0 or later
+* Require Ruby 2.1 or later
 
 === Fixes
 

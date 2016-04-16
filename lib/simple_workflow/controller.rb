@@ -26,9 +26,10 @@ module SimpleWorkflow::Controller
     store_detour_in_session(session, options)
   end
 
+  # FIXME(uwe):  Add test
   def store_detour_from_params
   end
-  deprecate :store_detour_from_params, :none, 2016, 11
+  deprecate :store_detour_from_params, :none, 2016, 11 # TODO(uwe)
 
   def back(response_status_and_flash)
     return false if session[:detours].nil?
