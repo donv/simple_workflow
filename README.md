@@ -1,6 +1,7 @@
 simple_workflow
 ===============
 
+[![Gem Version](https://badge.fury.io/rb/simple_workflow.svg)](https://badge.fury.io/rb/simple_workflow)
 [![Build Status](https://travis-ci.org/donv/simple_workflow.svg?branch=master)](https://travis-ci.org/donv/simple_workflow)
 
 * http://github.com/donv/simple_workflow
@@ -58,7 +59,7 @@ or in Gemfile
 
 (The MIT License)
 
-Copyright (c) 2009-2012 Uwe Kubosch
+Copyright (c) 2009-2016 Uwe Kubosch
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the

@@ -8,4 +8,8 @@ module SimpleWorkflow::Detour
     session[:detours] << options
     Rails.logger.try(:debug, "Added detour (#{session[:detours].try(:size) || 0}): #{options.inspect}")
   end
+
+  def reset_workflow(session)
+    session.delete(:detours)
+  end
 end

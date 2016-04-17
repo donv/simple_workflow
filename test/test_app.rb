@@ -3,7 +3,7 @@ require 'rails'
 class TestApp < Rails::Application
   config.action_dispatch.cookies_serializer = :json
   config.action_dispatch.key_generator = ActiveSupport::KeyGenerator.new('secret')
-  config.logger = Logger.new('log/test.log')
+  config.logger = Logger.new(File.expand_path('../log/test.log', __dir__))
   config.secret_key_base = 'secret key base'
   # config.secret_token = 'secret token'
 

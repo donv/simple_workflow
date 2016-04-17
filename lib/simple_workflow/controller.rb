@@ -67,12 +67,8 @@ module SimpleWorkflow::Controller
     return nil unless detours
     detour = detours.pop
     logger.debug "popped detour: #{detour.inspect} #{session[:detours].size} more"
-    reset_workflow if detours.empty?
+    reset_workflow(session) if detours.empty?
     detour
-  end
-
-  def reset_workflow
-    session.delete(:detours)
   end
 
   def redirect_to_post(options)

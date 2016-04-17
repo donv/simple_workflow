@@ -51,7 +51,7 @@ class SimpleWorkflow::Middleware
         break unless ws >= 2048 || (ss >= 3072 && session[:detours] && session[:detours].size > 0)
         Rails.logger.warn "Workflow too large (#{ws}/#{ss}).  Dropping oldest detour."
         session[:detours].shift
-        reset_workflow if session[:detours].empty?
+        reset_workflow(session) if session[:detours].empty?
       end
       Rails.logger.debug "session: #{ss} bytes, workflow(#{session[:detours].try(:size) || 0}): #{ws} bytes"
     end

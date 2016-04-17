@@ -1,6 +1,13 @@
+== 1.1.1 2016-04-17
+
+=== Fixes
+
+* Fix location of `reset_workflow` method
+
+
 == 1.1.0 2016-04-17
 
-=== Feature
+=== Features
 
 * Rewrite as Rails Engine middleware
 * Add support for Ruby 2.3 and JRuby 9000
