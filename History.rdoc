@@ -1,3 +1,10 @@
+== 1.1.2 2016-05-02
+
+=== Fixes
+
+* Fixed missing argument of pop_detour and moved it to the Detour module.
+
+
 == 1.1.1 2016-04-17
 
 === Fixes
