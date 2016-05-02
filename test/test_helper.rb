@@ -1,7 +1,10 @@
 require 'rubygems'
 require 'bundler/setup'
 require 'simplecov'
-SimpleCov.start { coverage_dir File.expand_path('../coverage', File.dirname(__FILE__)) }
+SimpleCov.start do
+  coverage_dir File.expand_path('../coverage', File.dirname(__FILE__))
+  minimum_coverage 75
+end
 require 'minitest/autorun'
 require 'minitest/reporters'
 MiniTest::Reporters.use!
