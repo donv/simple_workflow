@@ -31,6 +31,18 @@ class ControllerTest < MiniTest::Test
     assert_equal({}, session)
   end
   # ODOT
+
+  def test_back
+    store_detour({controller: :mycontroller, action: :myaction})
+    back({})
+    assert_equal({}, session)
+  end
+
+  private
+
+  def redirect_to(path, response_status_and_flash)
+    # NOOP
+  end
 end
 
 class TestApp < Rails::Application

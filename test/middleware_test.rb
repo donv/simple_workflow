@@ -72,6 +72,21 @@ class MiddlewareTest < MiniTest::Test
     assert_equal(%w(session_id), headers['rack.session'].to_hash.keys)
   end
 
+  def test_return_from_detour
+    _, headers1, _ = @stack.call env_for('/?detour[controller]=test_first')
+    env = env_for('/?return_from_detour=true',
+        'rack.session' => headers1['rack.session'],
+        'rack.session.options' => headers1['rack.session.options']
+    )
+    status, headers, response = @stack.call env
+
+    assert_equal 200, status
+    assert_equal(env, headers)
+    assert_equal 'app response', response
+    assert_equal(['session_id'], headers['rack.session'].to_hash.keys)
+    assert_equal(nil, headers['rack.session'].to_hash['detours'])
+  end
+
   private
 
   def env_for(url, opts={})

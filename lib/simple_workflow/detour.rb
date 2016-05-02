@@ -9,6 +9,15 @@ module SimpleWorkflow::Detour
     Rails.logger.try(:debug, "Added detour (#{session[:detours].try(:size) || 0}): #{options.inspect}")
   end
 
+  def pop_detour(session)
+    detours = session[:detours]
+    return nil unless detours
+    detour = detours.pop
+    Rails.logger.debug "popped detour: #{detour.inspect} #{session[:detours].size} more"
+    reset_workflow(session) if detours.empty?
+    detour
+  end
+
   def reset_workflow(session)
     session.delete(:detours)
   end

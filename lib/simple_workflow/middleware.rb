@@ -75,8 +75,8 @@ class SimpleWorkflow::Middleware
     if params(env)[:detour]
       store_detour_in_session(session(env), params(env)[:detour])
     end
-    if params(env)[:return_from_detour] && session[:detours]
-      pop_detour
+    if params(env)[:return_from_detour] && session(env)[:detours]
+      pop_detour(session(env))
     end
   end
 

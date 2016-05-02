@@ -32,7 +32,7 @@ module SimpleWorkflow::Controller
 
   def back(response_status_and_flash)
     return false if session[:detours].nil?
-    detour = pop_detour
+    detour = pop_detour(session)
     post = detour.delete(:request_method) == :post
     if post
       set_flash(response_status_and_flash)
@@ -61,15 +61,6 @@ module SimpleWorkflow::Controller
     end
   end
   private :set_flash
-
-  def pop_detour
-    detours = session[:detours]
-    return nil unless detours
-    detour = detours.pop
-    logger.debug "popped detour: #{detour.inspect} #{session[:detours].size} more"
-    reset_workflow(session) if detours.empty?
-    detour
-  end
 
   def redirect_to_post(options)
     url = url_for options
