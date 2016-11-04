@@ -8,6 +8,17 @@ class HelperTest < MiniTest::Test
         with_detour('')
   end
 
+  def test_image_button_to
+    assert_equal [
+      'my_image.png', {
+        class: 'image-submit', alt: 'Link Title',
+        title: 'Image title', id: 'Link Title_image_tag_id', name: 'Link Title',
+        onclick: "form.action='{:id=>\"image_tag_id\"}'"
+      }
+    ],
+        image_button_to('my_image.png', 'Link Title', {id: 'image_tag_id'}, title: 'Image title')
+  end
+
   private
 
   def params
@@ -16,5 +27,9 @@ class HelperTest < MiniTest::Test
 
   def url_for(options)
     options.to_s
+  end
+
+  def image_submit_tag(*args)
+    args
   end
 end

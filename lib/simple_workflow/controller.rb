@@ -41,6 +41,8 @@ module SimpleWorkflow::Controller
       redirect_to detour, response_status_and_flash
     end
     true
+  rescue
+    retry
   end
 
   def back_or_redirect_to(options = {}, response_status_and_flash = {})

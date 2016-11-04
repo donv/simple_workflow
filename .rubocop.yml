@@ -1,0 +1,18 @@
+inherit_from: .rubocop_todo.yml
+
+AllCops:
+  TargetRubyVersion: 2.1
+  DisplayCopNames: true
+  DisplayStyleGuide: true
+  Include:
+    - '**/Gemfile'
+    - '**/Rakefile'
+
+Rails:
+  Enabled: true
+
+Style/Encoding:
+  Enabled: true
+
+Style/SafeNavigation:
+  ConvertCodeThatCanStartToReturnNil: true

@@ -10,6 +10,7 @@ class ControllerTest < MiniTest::Test
     @cookies = ActionDispatch::Cookies::CookieJar.new(ActiveSupport::KeyGenerator.new('secret'), nil, false, options)
     @logger = Rails.logger
     @session = {}
+    @bad_route = false
     # TODO(uwe):  Remove when we stop testing Rails 4.1
     if Rails.version !~ /^4\.1\./
       Rails.app_class = TestApp
@@ -38,10 +39,17 @@ class ControllerTest < MiniTest::Test
     assert_equal({}, session)
   end
 
+  def test_back_with_invalid_detour # not route
+    store_detour({controller: :mycontroller, action: :missing_in_action})
+    @bad_route = true
+    back({})
+    assert_equal({}, session)
+  end
+
   private
 
-  def redirect_to(path, response_status_and_flash)
-    # NOOP
+  def redirect_to(_path, _response_status_and_flash)
+    raise 'Bad route' if @bad_route
   end
 end
 

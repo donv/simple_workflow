@@ -38,22 +38,32 @@ class SimpleWorkflow::Middleware
   end
 
   def remove_old_detours(env)
-    if (cookie_store = session(env).instance_variable_get('@by'))
-        .is_a? ActionDispatch::Session::CookieStore
-      ss = ws = nil
+    if session(env).instance_variable_get('@by').is_a?(ActionDispatch::Session::CookieStore)
+      session_size = workflow_size = nil
       session = session(env)
+      # env[ActionDispatch::Cookies::COOKIES_SERIALIZER]
+      cookie_jar = cookie_jar(env)
+      encryptor = encryptor(env)
       loop do
-        # env[ActionDispatch::Cookies::COOKIES_SERIALIZER]
-        ser_val = cookie_jar(env).send(:serialize, nil, session.to_hash)
-        ss = encryptor(env).encrypt_and_sign(ser_val).size
-        wf_ser_val = cookie_jar(env).send(:serialize, nil, session[:detours])
-        ws = encryptor(env).encrypt_and_sign(wf_ser_val).size
-        break unless ws >= 2048 || (ss >= 3072 && session[:detours] && session[:detours].size > 0)
-        Rails.logger.warn "Workflow too large (#{ws}/#{ss}).  Dropping oldest detour."
+        ser_val = cookie_jar.send(:serialize, nil, session.to_hash)
+        session_size = encryptor.encrypt_and_sign(ser_val).size
+        wf_ser_val = cookie_jar.send(:serialize, nil, session[:detours])
+        workflow_size = encryptor.encrypt_and_sign(wf_ser_val).size
+        break unless workflow_size >= 2048 || (session_size >= 3072 && session[:detours] && session[:detours].size > 0)
+        Rails.logger.warn "Workflow too large (#{workflow_size}/#{session_size}).  Dropping oldest detour."
         session[:detours].shift
         reset_workflow(session) if session[:detours].empty?
       end
-      Rails.logger.debug "session: #{ss} bytes, workflow(#{session[:detours].try(:size) || 0}): #{ws} bytes"
+      Rails.logger.debug "session: #{session_size} bytes, workflow(#{session[:detours].try(:size) || 0}): #{workflow_size} bytes"
+      if session_size > 4096
+        Rails.logger.warn "simple_workflow: session exceeds cookie size limit: #{session_size} bytes.  Workflow empty!  Not My Fault!"
+        Rails.logger.warn "simple_workflow: session: #{session.to_hash}"
+        if (old_flashes = session[:flash] && session[:flash]['discard'])
+          Rails.logger.warn "simple_workflow: found discarded flash entries: #{old_flashes}.  Deleting them."
+          session[:flash]['flashes'] = session[:flash]['flashes'].except(*old_flashes)
+          Rails.logger.warn "simple_workflow: session: #{session.to_hash}"
+        end
+      end
     end
   end
 
@@ -61,6 +71,7 @@ class SimpleWorkflow::Middleware
     return @simple_workflow_encryptor if @simple_workflow_encryptor
     @simple_workflow_encryptor = cookie_jar(env).instance_variable_get(:@encryptor)
     return @simple_workflow_encryptor if @simple_workflow_encryptor
+    Rails.logger.warn 'simple_workflow: Could not get encryptor from the cookie jar'
     secret_key_base = Rails.application.config.secret_key_base ||
         Rails.application.config.secret_token ||
         SecureRandom.hex(64)

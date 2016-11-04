@@ -33,3 +33,6 @@ Rake::TestTask.new do |t|
   t.verbose    = true
 end
 
+require 'rubocop/rake_task'
+RuboCop::RakeTask.new
+Rake::Task[:test].enhance ['rubocop:auto_correct']

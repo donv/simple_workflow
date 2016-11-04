@@ -14,11 +14,11 @@ module SimpleWorkflow::Helper
       link_with_detour = link_to(title, with_detour(options), html_options)
     end
     if link_with_detour.size > 4096 # URL maximum size overflow
-      if block
-        link_with_detour = link_to(options, html_options, &block)
-      else
-        link_with_detour = link_to(title, options, html_options)
-      end
+      link_with_detour = if block
+                           link_to(options, html_options, &block)
+                         else
+                           link_to(title, options, html_options)
+                         end
     end
     link_with_detour
   end
