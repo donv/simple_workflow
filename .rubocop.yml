@@ -5,7 +5,6 @@ AllCops:
   DisplayCopNames: true
   DisplayStyleGuide: true
   Include:
-    - '**/*.gemspec'
     - '**/Gemfile'
     - '**/Rakefile'
 

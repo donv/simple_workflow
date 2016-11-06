@@ -4,7 +4,7 @@ require './lib/simple_workflow/version'
 Gem::Specification.new do |s|
   s.name = %q{simple_workflow}
   s.version = SimpleWorkflow::VERSION
-  s.date = Time.zone.today.strftime '%Y-%m-%d'
+  s.date = Date.today.strftime '%Y-%m-%d'
   s.authors = ['Uwe Kubosch']
   s.email = %q{uwe@kubosch.no}
   s.summary = %q{Add simple breadcrumbs "detour" workflow to Ruby On Rails.}
