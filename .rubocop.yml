@@ -8,7 +8,7 @@ AllCops:
     - '**/Gemfile'
     - '**/Rakefile'
   Exclude:
-    - 'gemfiles/vendor'
+    - 'gemfiles/vendor/**/*'
 
 Rails:
   Enabled: true
