@@ -1,5 +1,5 @@
 module SimpleWorkflow::TestHelper
-  def add_stored_detour(location = {:controller => :bogus, :action => :location})
+  def add_stored_detour(location = { controller: :bogus, action: :location })
     @request.session[:detours] = [location]
   end
 end

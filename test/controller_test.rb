@@ -6,7 +6,7 @@ class ControllerTest < MiniTest::Test
   attr_accessor :cookies, :logger, :session
 
   def setup
-    options = {encrypted_cookie_salt: 'salt1', encrypted_signed_cookie_salt: 'salt2', secret_key_base: 'secret_key_base'}
+    options = { encrypted_cookie_salt: 'salt1', encrypted_signed_cookie_salt: 'salt2', secret_key_base: 'secret_key_base' }
     if Rails.gem_version < Gem::Version.new('5')
       @cookies = ActionDispatch::Cookies::CookieJar.new(ActiveSupport::KeyGenerator.new('secret'), nil, false, options)
     end
@@ -14,28 +14,26 @@ class ControllerTest < MiniTest::Test
     @session = {}
     @bad_route = false
     # TODO(uwe):  Remove when we stop testing Rails 4.1
-    if Rails.version !~ /^4\.1\./
-      Rails.app_class = TestApp
-    end
+    Rails.app_class = TestApp if Rails.version !~ /^4\.1\./
     # ODOT
   end
 
   def test_store_detour
-    location = {controller: :mycontroller, action: :myaction}
+    location = { controller: :mycontroller, action: :myaction }
 
     store_detour(location)
 
-    assert_equal({detours: [location]}, session)
+    assert_equal({ detours: [location] }, session)
   end
 
   def test_back
-    store_detour({controller: :mycontroller, action: :myaction})
+    store_detour(controller: :mycontroller, action: :myaction)
     back({})
     assert_equal({}, session)
   end
 
   def test_back_with_invalid_detour # not route
-    store_detour({controller: :mycontroller, action: :missing_in_action})
+    store_detour(controller: :mycontroller, action: :missing_in_action)
     @bad_route = true
     back({})
     assert_equal({}, session)

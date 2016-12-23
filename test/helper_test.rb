@@ -12,7 +12,7 @@ class HelperTest < MiniTest::Test
     assert_equal [
       'Link Text',
       'Link target?detour%5Baction%5D=myaction&detour%5Bcontroller%5D=mycontroller&detour%5Bid%5D=42&detour%5Bquery%5D%5Bnested%5D=criterium',
-      {id: 'link_tag_id', title: 'Link title'}
+      { id: 'link_tag_id', title: 'Link title' }
     ],
         detour_to('Link Text', 'Link target', id: 'link_tag_id', title: 'Link title')
   end
@@ -25,13 +25,13 @@ class HelperTest < MiniTest::Test
         onclick: "form.action='{:id=>\"image_tag_id\"}'"
       }
     ],
-        image_button_to('my_image.png', 'Link Title', {id: 'image_tag_id'}, title: 'Image title')
+        image_button_to('my_image.png', 'Link Title', { id: 'image_tag_id' }, title: 'Image title')
   end
 
   private
 
   def params
-    {controller: 'mycontroller', action: 'myaction', id: 42, query: {nested: 'criterium'}}
+    { controller: 'mycontroller', action: 'myaction', id: 42, query: { nested: 'criterium' } }
   end
 
   def url_for(options)

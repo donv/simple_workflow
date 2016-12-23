@@ -16,7 +16,7 @@ module SimpleWorkflow::Controller
 
   def rjs_redirect_to(options)
     @options = options
-    render :template => 'redirect', :layout => false, :formats => :js
+    render template: 'redirect', layout: false, formats: :js
   end
 
   def store_detour(options, post = false)
@@ -30,7 +30,7 @@ module SimpleWorkflow::Controller
     detour = pop_detour(session)
     post = detour.delete(:request_method) == :post
     if post
-      set_flash(response_status_and_flash)
+      save_flash(response_status_and_flash)
       redirect_to_post(detour)
     else
       redirect_to detour, response_status_and_flash
@@ -41,10 +41,10 @@ module SimpleWorkflow::Controller
   end
 
   def back_or_redirect_to(options = {}, response_status_and_flash = {})
-    back(response_status_and_flash) or redirect_to(options, response_status_and_flash)
+    back(response_status_and_flash) || redirect_to(options, response_status_and_flash)
   end
 
-  def set_flash(response_status_and_flash)
+  def save_flash(response_status_and_flash)
     if (alert = response_status_and_flash.delete(:alert))
       flash[:alert] = alert
     end
@@ -57,11 +57,11 @@ module SimpleWorkflow::Controller
       flash.update(other_flashes)
     end
   end
-  private :set_flash
+  private :save_flash
 
   def redirect_to_post(options)
     url = url_for options
-    render :text => <<EOF, :layout => false
+    render text: <<EOF, layout: false
 <html>
   <body onload="document.getElementById('form').submit()">
     <form id="form" action="#{url}" method="POST">
@@ -70,5 +70,4 @@ module SimpleWorkflow::Controller
 </html>
 EOF
   end
-
 end

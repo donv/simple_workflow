@@ -1,5 +1,5 @@
-unless $:.include?(File.dirname(__FILE__)) || $:.include?(File.expand_path(File.dirname(__FILE__)))
-  $:.unshift(File.dirname(__FILE__))
+unless $LOAD_PATH.include?(File.dirname(__FILE__)) || $LOAD_PATH.include?(File.expand_path(File.dirname(__FILE__)))
+  $LOAD_PATH.unshift(File.dirname(__FILE__))
 end
 
 require 'action_controller'

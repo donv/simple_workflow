@@ -13,6 +13,10 @@ AllCops:
 Rails:
   Enabled: true
 
+Style/AlignParameters:
+  EnforcedStyle: with_fixed_indentation
+  IndentationWidth: 4
+
 Style/Encoding:
   Enabled: true
 

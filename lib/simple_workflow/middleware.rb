@@ -49,7 +49,7 @@ class SimpleWorkflow::Middleware
         session_size = encryptor.encrypt_and_sign(ser_val).size
         wf_ser_val = serialize_session(cookie_jar, session[:detours])
         workflow_size = encryptor.encrypt_and_sign(wf_ser_val).size
-        break unless workflow_size >= 2048 || (session_size >= 3072 && session[:detours] && session[:detours].size > 0)
+        break unless workflow_size >= 2048 || (session_size >= 3072 && session[:detours] && !session[:detours].empty?)
         Rails.logger.warn "Workflow too large (#{workflow_size}/#{session_size}).  Dropping oldest detour."
         session[:detours].shift
         reset_workflow(session) if session[:detours].empty?
@@ -83,8 +83,8 @@ class SimpleWorkflow::Middleware
     return @simple_workflow_encryptor if @simple_workflow_encryptor
     Rails.logger.warn 'simple_workflow: Could not get encryptor from the cookie jar'
     secret_key_base = Rails.application.config.secret_key_base ||
-        Rails.application.config.secret_token ||
-        SecureRandom.hex(64)
+                      Rails.application.config.secret_token ||
+                      SecureRandom.hex(64)
     key_generator = ActiveSupport::KeyGenerator.new(secret_key_base, iterations: 1000)
     key_generator = ActiveSupport::CachingKeyGenerator.new(key_generator)
     secret = key_generator.generate_key('encrypted cookie')
@@ -100,5 +100,4 @@ class SimpleWorkflow::Middleware
       pop_detour(session(env))
     end
   end
-
 end
