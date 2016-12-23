@@ -21,10 +21,10 @@ class MiddlewareTest < MiniTest::Test
     status, headers, response = @stack.call env
 
     assert_equal 200, status
-    assert_equal(env, headers)
+    assert_equal env, headers
     assert_equal 'app response', response
-    assert_equal([], headers['rack.session'].to_hash.keys)
-    assert_equal(nil, headers['rack.session'].to_hash['detours'])
+    assert_equal [], headers['rack.session'].to_hash.keys
+    assert_nil headers['rack.session'].to_hash['detours']
   end
 
   def test_detour
@@ -81,10 +81,10 @@ class MiddlewareTest < MiniTest::Test
     status, headers, response = @stack.call env
 
     assert_equal 200, status
-    assert_equal(env, headers)
+    assert_equal env, headers
     assert_equal 'app response', response
-    assert_equal(['session_id'], headers['rack.session'].to_hash.keys)
-    assert_equal(nil, headers['rack.session'].to_hash['detours'])
+    assert_equal ['session_id'], headers['rack.session'].to_hash.keys
+    assert_nil headers['rack.session'].to_hash['detours']
   end
 
   private

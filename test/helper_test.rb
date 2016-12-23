@@ -8,6 +8,15 @@ class HelperTest < MiniTest::Test
         with_detour('')
   end
 
+  def test_detour_to
+    assert_equal [
+      'Link Text',
+      'Link target?detour%5Baction%5D=myaction&detour%5Bcontroller%5D=mycontroller&detour%5Bid%5D=42&detour%5Bquery%5D%5Bnested%5D=criterium',
+      {id: 'link_tag_id', title: 'Link title'}
+    ],
+        detour_to('Link Text', 'Link target', id: 'link_tag_id', title: 'Link title')
+  end
+
   def test_image_button_to
     assert_equal [
       'my_image.png', {
@@ -27,6 +36,10 @@ class HelperTest < MiniTest::Test
 
   def url_for(options)
     options.to_s
+  end
+
+  def link_to(*options)
+    options
   end
 
   def image_submit_tag(*args)

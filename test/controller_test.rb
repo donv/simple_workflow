@@ -7,7 +7,9 @@ class ControllerTest < MiniTest::Test
 
   def setup
     options = {encrypted_cookie_salt: 'salt1', encrypted_signed_cookie_salt: 'salt2', secret_key_base: 'secret_key_base'}
-    @cookies = ActionDispatch::Cookies::CookieJar.new(ActiveSupport::KeyGenerator.new('secret'), nil, false, options)
+    if Rails.gem_version < Gem::Version.new('5')
+      @cookies = ActionDispatch::Cookies::CookieJar.new(ActiveSupport::KeyGenerator.new('secret'), nil, false, options)
+    end
     @logger = Rails.logger
     @session = {}
     @bad_route = false
@@ -25,13 +27,6 @@ class ControllerTest < MiniTest::Test
 
     assert_equal({detours: [location]}, session)
   end
-
-  # TODO(uwe): Remove.  The method does nothing.  Just a stub for compatability.
-  def test_deprecated_store_detour_from_params
-    store_detour_from_params
-    assert_equal({}, session)
-  end
-  # ODOT
 
   def test_back
     store_detour({controller: :mycontroller, action: :myaction})

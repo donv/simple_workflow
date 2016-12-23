@@ -25,11 +25,6 @@ module SimpleWorkflow::Controller
     store_detour_in_session(session, options)
   end
 
-  def store_detour_from_params
-  end
-  deprecate :store_detour_from_params,
-      deprecator: ActiveSupport::Deprecation.new('1.2', 'SimpleWorkflow') # TODO(uwe)
-
   def back(response_status_and_flash)
     return false if session[:detours].nil?
     detour = pop_detour(session)

@@ -2,20 +2,19 @@ language: ruby
 sudo: false
 rvm:
   - jruby-head
-  - 2.3.1
-  - jruby-9.1.5.0
-  - 2.2.5
+  - 2.3.3
+  - jruby-9.1.6.0
+  - 2.2.6
   - 2.1.9
 
 jdk:
   - oraclejdk8
-#  - oraclejdk9
 
 env:
   - JRUBY_OPTS="--dev --debug"
 
 before_install:
-  - gem query -i -n '^bundler$' >/dev/null || gem install --no-ri --no-rdoc bundler
+  - gem query -i -n '^bundler$' >/dev/null || gem install --no-doc bundler
   - bundle install
 
 gemfile:

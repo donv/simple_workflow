@@ -3,7 +3,7 @@ require 'bundler/setup'
 require 'simplecov'
 SimpleCov.start do
   coverage_dir File.expand_path('../coverage', File.dirname(__FILE__))
-  minimum_coverage 75
+  minimum_coverage 76
 end
 require 'minitest/autorun'
 require 'minitest/reporters'

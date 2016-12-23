@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
   s.required_ruby_version = '~> 2.1'
   s.licenses = %w(MIT)
   s.files = FileList['[A-Z]*', 'lib/**/*', 'test/**/*'].to_a
-  s.add_runtime_dependency('rails', '~>4.0')
+  s.add_runtime_dependency('rails', '>=4', '<5.1')
   s.add_development_dependency('simplecov', '~>0.9')
   s.add_development_dependency('minitest-reporters', '~>1.0')
   s.add_development_dependency('rubocop', '~>0.45')
