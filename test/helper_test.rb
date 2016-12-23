@@ -28,6 +28,13 @@ class HelperTest < MiniTest::Test
         image_button_to('my_image.png', 'Link Title', { id: 'image_tag_id' }, title: 'Image title')
   end
 
+  def test_image_link_to
+    assert_equal [
+      ['my_image.png', { title: 'Link Title', alt: 'Link Title' }], { id: 'image_tag_id' }, nil
+    ],
+        image_link_to('my_image.png', 'Link Title', { id: 'image_tag_id' }, title: 'Image title')
+  end
+
   private
 
   def params
@@ -40,6 +47,10 @@ class HelperTest < MiniTest::Test
 
   def link_to(*options)
     options
+  end
+
+  def image_tag(*args)
+    args
   end
 
   def image_submit_tag(*args)
