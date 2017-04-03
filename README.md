@@ -45,7 +45,7 @@ In your tests:
 ## REQUIREMENTS
 
 * Ruby 2.1 or newer.  JRuby supported!
-* Rails 4.x
+* Rails 4.x or newer.
 
 ## INSTALL
 
