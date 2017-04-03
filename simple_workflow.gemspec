@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.description = 'Expands Ruby On Rails to allow simple breadcrumb detour workflows.'
   s.rubyforge_project = 'donv/simple_workflow'
   s.required_ruby_version = '~> 2.1'
-  s.licenses = %w(MIT)
+  s.licenses = %w[MIT]
   s.files = FileList['[A-Z]*', 'lib/**/*', 'test/**/*'].to_a
   s.add_runtime_dependency('rails', '>=4', '<5.1')
   s.add_development_dependency('simplecov', '~>0.9')

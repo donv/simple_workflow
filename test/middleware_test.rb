@@ -35,7 +35,7 @@ class MiddlewareTest < MiniTest::Test
     assert_equal 200, status
     assert_equal(env, headers)
     assert_equal 'app response', response
-    assert_equal(%w(session_id detours), headers['rack.session'].to_hash.keys)
+    assert_equal(%w[session_id detours], headers['rack.session'].to_hash.keys)
     assert_equal([{ 'controller' => 'test' }], headers['rack.session'].to_hash['detours'])
   end
 
@@ -52,7 +52,7 @@ class MiddlewareTest < MiniTest::Test
 
     assert_equal 200, status
     assert_equal 'app response', response
-    assert_equal(%w(session_id detours), env['rack.session'].to_hash.keys)
+    assert_equal(%w[session_id detours], env['rack.session'].to_hash.keys)
 
     assert_equal(((57..99).to_a + [:last]).map { |i| { 'controller' => "test_#{i}" } },
         env['rack.session'].to_hash['detours'])
@@ -69,7 +69,7 @@ class MiddlewareTest < MiniTest::Test
     assert_equal 200, status
     assert_equal(env, headers)
     assert_equal 'app response', response
-    assert_equal(%w(session_id), headers['rack.session'].to_hash.keys)
+    assert_equal(%w[session_id], headers['rack.session'].to_hash.keys)
   end
 
   def test_return_from_detour

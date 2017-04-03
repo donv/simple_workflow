@@ -36,7 +36,7 @@ module SimpleWorkflow::Helper
   end
 
   def origin_options
-    params.reject { |k, _v| %i(detour return_from_detour).include? k.to_sym }
+    params.reject { |k, _v| %i[detour return_from_detour].include? k.to_sym }
   end
 
   def image_detour_to(image_source, title, url_options, image_options = nil, link_options = nil)
