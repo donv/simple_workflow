@@ -35,10 +35,30 @@ class HelperTest < MiniTest::Test
         image_link_to('my_image.png', 'Link Title', { id: 'image_tag_id' }, title: 'Image title')
   end
 
+  def test_back_or_link_to
+    assert_equal ['Link title', { controller: :mycontroller, action: :my_action }, nil],
+        back_or_link_to('Link title', controller: :mycontroller, action: :my_action)
+  end
+
+  def test_back_or_link_to_with_routing_error
+    @session = { detours: [{ controller: :does_not_exist }] }
+    @routing_error = ActionController::UrlGenerationError
+    assert_equal ['Link title', { controller: :mycontroller, action: :my_action }, nil],
+        back_or_link_to('Link title', controller: :mycontroller, action: :my_action)
+  end
+
   private
+
+  def logger
+    @logger ||= Logger.new(File.expand_path('../log/test.log', __dir__))
+  end
 
   def params
     { controller: 'mycontroller', action: 'myaction', id: 42, query: { nested: 'criterium' } }
+  end
+
+  def session
+    @session ||= {}
   end
 
   def url_for(options)
@@ -46,6 +66,11 @@ class HelperTest < MiniTest::Test
   end
 
   def link_to(*options)
+    if defined?(@routing_error) && @routing_error
+      e = @routing_error
+      @routing_error = nil
+      raise e
+    end
     options
   end
 

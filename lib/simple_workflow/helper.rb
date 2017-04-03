@@ -1,4 +1,7 @@
+require_relative 'detour'
 module SimpleWorkflow::Helper
+  include SimpleWorkflow::Detour
+
   def image_button_to(image_source, title, options, html_options = {})
     image_submit_tag image_source, { class: 'image-submit', alt: title, title: title,
                                      id: "#{title}_#{options[:id]}", name: title,
@@ -33,7 +36,7 @@ module SimpleWorkflow::Helper
   end
 
   def origin_options
-    params.reject { |k, _v| [:detour, :return_from_detour].include? k.to_sym }
+    params.reject { |k, _v| %i(detour return_from_detour).include? k.to_sym }
   end
 
   def image_detour_to(image_source, title, url_options, image_options = nil, link_options = nil)
@@ -70,14 +73,24 @@ module SimpleWorkflow::Helper
 
   def back_or_link_to(title, options = nil, html_options = nil)
     if session[:detours]
-      options      = { return_from_detour: true }.update(session[:detours].last)
+      link_options = { return_from_detour: true }.update(session[:detours].last)
 
       # FIXME(uwe): Write a test to prove this line is needed.
-      options['id'] ||= nil
+      link_options['id'] ||= nil
       # EMXIF
 
-      logger.debug "linked return from detour: #{options.inspect}"
+      logger.debug "linked return from detour: #{link_options.inspect}"
+    else
+      link_options = options
     end
-    link_to(title, options, html_options) if options
+
+    link_to(title, link_options, html_options) if options
+  rescue ActionController::UrlGenerationError => e
+    if session[:detours]
+      logger.error "Exception linking to origin: #{e.class} #{e}"
+      pop_detour(session)
+      retry
+    end
+    raise
   end
 end

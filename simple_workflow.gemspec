@@ -1,14 +1,15 @@
 require 'rake'
 require './lib/simple_workflow/version'
+require 'date'
 
 Gem::Specification.new do |s|
-  s.name = %q{simple_workflow}
+  s.name = 'simple_workflow'
   s.version = SimpleWorkflow::VERSION
   s.date = Date.today.strftime '%Y-%m-%d'
   s.authors = ['Uwe Kubosch']
-  s.email = %q{uwe@kubosch.no}
-  s.summary = %q{Add simple breadcrumbs "detour" workflow to Ruby On Rails.}
-  s.homepage = %q{https://github.com/donv/simple_workflow}
+  s.email = 'uwe@kubosch.no'
+  s.summary = 'Add simple breadcrumbs "detour" workflow to Ruby On Rails.'
+  s.homepage = 'https://github.com/donv/simple_workflow'
   s.description = 'Expands Ruby On Rails to allow simple breadcrumb detour workflows.'
   s.rubyforge_project = 'donv/simple_workflow'
   s.required_ruby_version = '~> 2.1'

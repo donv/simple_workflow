@@ -53,21 +53,20 @@ module SimpleWorkflow::Controller
       flash[:notice] = notice
     end
 
-    if (other_flashes = response_status_and_flash.delete(:flash))
-      flash.update(other_flashes)
-    end
+    return unless (other_flashes = response_status_and_flash.delete(:flash))
+    flash.update(other_flashes)
   end
   private :save_flash
 
   def redirect_to_post(options)
     url = url_for options
-    render text: <<EOF, layout: false
-<html>
-  <body onload="document.getElementById('form').submit()">
-    <form id="form" action="#{url}" method="POST">
-    </form>
-  </body>
-</html>
+    render text: <<EOF.strip_heredoc, layout: false
+      <html>
+        <body onload="document.getElementById('form').submit()">
+          <form id="form" action="#{url}" method="POST">
+          </form>
+        </body>
+      </html>
 EOF
   end
 end
