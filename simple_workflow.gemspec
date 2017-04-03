@@ -5,7 +5,7 @@ require 'date'
 Gem::Specification.new do |s|
   s.name = 'simple_workflow'
   s.version = SimpleWorkflow::VERSION
-  s.date = Date.today.strftime '%Y-%m-%d'
+  s.date = Date.today.strftime '%Y-%m-%d' # rubocop:disable Rails/Date
   s.authors = ['Uwe Kubosch']
   s.email = 'uwe@kubosch.no'
   s.summary = 'Add simple breadcrumbs "detour" workflow to Ruby On Rails.'
