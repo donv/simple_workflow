@@ -1,11 +1,15 @@
 require_relative 'detour'
+
+# View helper methods augmented with breadcrumb management.
 module SimpleWorkflow::Helper
   include SimpleWorkflow::Detour
 
   def image_button_to(image_source, title, options, html_options = {})
-    image_submit_tag image_source, { class: 'image-submit', alt: title, title: title,
-                                     id: "#{title}_#{options[:id]}", name: title,
-                                     onclick: "form.action='#{url_for(options)}'" }.update(html_options)
+    image_submit_tag image_source, {
+      class: 'image-submit', alt: title, title: title,
+      id: "#{title}_#{options[:id]}", name: title,
+      onclick: "form.action='#{url_for(options)}'"
+    }.update(html_options)
   end
 
   def detour_to(title, options = nil, html_options = nil, &block)
@@ -56,7 +60,8 @@ module SimpleWorkflow::Helper
     link_to image_tag(image_source, image_options), url_options, link_options
   end
 
-  def image_link_to_remote(image_source, title, link_options, image_options = nil, html_options = {})
+  def image_link_to_remote(image_source, title, link_options, image_options = nil,
+      html_options = {})
     if html_options == true
       html_options = { method: :post }
     elsif html_options == false
@@ -84,7 +89,7 @@ module SimpleWorkflow::Helper
       link_options = options
     end
 
-    link_to(title, link_options, html_options) if options
+    link_to(title, link_options, html_options) if link_options
   rescue ActionController::UrlGenerationError => e
     if session[:detours]
       logger.error "Exception linking to origin: #{e.class} #{e}"

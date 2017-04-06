@@ -13,12 +13,15 @@ AllCops:
 Rails:
   Enabled: true
 
+Metrics/LineLength:
+  Max: 100
+
 Style/AlignParameters:
   EnforcedStyle: with_fixed_indentation
   IndentationWidth: 4
 
-Style/Encoding:
-  Enabled: true
+Style/ClassAndModuleChildren:
+  Enabled: false
 
 Style/SafeNavigation:
   ConvertCodeThatCanStartToReturnNil: true

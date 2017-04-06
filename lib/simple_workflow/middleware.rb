@@ -1,5 +1,6 @@
 require 'simple_workflow/detour'
 
+# Rack middleware to detect and store detours and manage returns from detours.
 class SimpleWorkflow::Middleware
   include SimpleWorkflow::Detour
 
@@ -38,7 +39,8 @@ class SimpleWorkflow::Middleware
   end
 
   def remove_old_detours(env)
-    return unless session(env).instance_variable_get('@by').is_a?(ActionDispatch::Session::CookieStore)
+    return unless session(env).instance_variable_get('@by')
+                              .is_a?(ActionDispatch::Session::CookieStore)
     session_size = workflow_size = nil
     session = session(env)
     # env[ActionDispatch::Cookies::COOKIES_SERIALIZER]
@@ -49,17 +51,26 @@ class SimpleWorkflow::Middleware
       session_size = encryptor.encrypt_and_sign(ser_val).size
       wf_ser_val = serialize_session(cookie_jar, session[:detours])
       workflow_size = encryptor.encrypt_and_sign(wf_ser_val).size
-      break unless workflow_size >= 2048 || (session_size >= 3072 && session[:detours] && !session[:detours].empty?)
-      Rails.logger.warn "Workflow too large (#{workflow_size}/#{session_size}).  Dropping oldest detour."
+      break unless workflow_size >= 2048 ||
+                   (session_size >= 3072 && session[:detours] && !session[:detours].empty?)
+      Rails.logger.warn(
+        "Workflow too large (#{workflow_size}/#{session_size}).  Dropping oldest detour."
+      )
       session[:detours].shift
       reset_workflow(session) if session[:detours].empty?
     end
-    Rails.logger.debug "session: #{session_size} bytes, workflow(#{session[:detours].try(:size) || 0}): #{workflow_size} bytes"
+    Rails.logger.debug <<-MSG.strip_heredoc
+      session: #{session_size} bytes, workflow(#{session[:detours].try(:size) || 0}): #{workflow_size} bytes
+    MSG
     return unless session_size > 4096
-    Rails.logger.warn "simple_workflow: session exceeds cookie size limit: #{session_size} bytes.  Workflow empty!  Not My Fault!"
+    Rails.logger.warn <<-MSG.strip_heredoc
+      simple_workflow: session exceeds cookie size limit: #{session_size} bytes.  Workflow empty!  Not My Fault!
+    MSG
     Rails.logger.warn "simple_workflow: session: #{session.to_hash}"
     return unless (old_flashes = session[:flash] && session[:flash]['discard'])
-    Rails.logger.warn "simple_workflow: found discarded flash entries: #{old_flashes}.  Deleting them."
+    Rails.logger.warn <<-MSG.strip_heredoc
+      simple_workflow: found discarded flash entries: #{old_flashes}.  Deleting them.
+    MSG
     session[:flash]['flashes'] = session[:flash]['flashes'].except(*old_flashes)
     Rails.logger.warn "simple_workflow: session: #{session.to_hash}"
   end

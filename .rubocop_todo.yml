@@ -8,48 +8,17 @@
 
 # Offense count: 6
 Metrics/AbcSize:
-  Max: 53
+  Max: 56
 
 # Offense count: 1
 Metrics/CyclomaticComplexity:
   Max: 11
 
-# Offense count: 43
-# Configuration parameters: AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, IgnoredPatterns.
-# URISchemes: http, https
-Metrics/LineLength:
-  Max: 142
-
 # Offense count: 6
 # Configuration parameters: CountComments.
 Metrics/MethodLength:
-  Max: 23
+  Max: 33
 
 # Offense count: 1
 Metrics/PerceivedComplexity:
   Max: 11
-
-# Offense count: 7
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-# SupportedStyles: nested, compact
-Style/ClassAndModuleChildren:
-  Exclude:
-    - 'lib/simple_workflow.rb'
-    - 'lib/simple_workflow/controller.rb'
-    - 'lib/simple_workflow/detour.rb'
-    - 'lib/simple_workflow/helper.rb'
-    - 'lib/simple_workflow/middleware.rb'
-    - 'lib/simple_workflow/test_helper.rb'
-
-# Offense count: 9
-Style/Documentation:
-  Exclude:
-    - 'spec/**/*'
-    - 'test/**/*'
-    - 'lib/simple_workflow.rb'
-    - 'lib/simple_workflow/controller.rb'
-    - 'lib/simple_workflow/detour.rb'
-    - 'lib/simple_workflow/helper.rb'
-    - 'lib/simple_workflow/middleware.rb'
-    - 'lib/simple_workflow/railtie.rb'
-    - 'lib/simple_workflow/test_helper.rb'

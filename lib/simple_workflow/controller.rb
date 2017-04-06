@@ -1,9 +1,11 @@
 require 'simple_workflow/detour'
 
+# Mixin to add controller methods for workflow navigation.
 module SimpleWorkflow::Controller
   include SimpleWorkflow::Detour
 
-  # Like ActionController::Base#redirect_to, but stores the location we come from, enabling returning here later.
+  # Like ActionController::Base#redirect_to, but stores the location we come from, enabling
+  # returning here later.
   def detour_to(options)
     store_detour(params)
     redirect_to(options)
