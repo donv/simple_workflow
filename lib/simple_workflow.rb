@@ -1,6 +1,5 @@
-unless $LOAD_PATH.include?(File.dirname(__FILE__)) ||
-       $LOAD_PATH.include?(File.expand_path(File.dirname(__FILE__)))
-  $LOAD_PATH.unshift(File.dirname(__FILE__))
+unless $LOAD_PATH.include?(__dir__) || $LOAD_PATH.include?(File.expand_path(__dir__))
+  $LOAD_PATH.unshift(__dir__)
 end
 
 require 'action_controller'

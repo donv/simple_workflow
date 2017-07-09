@@ -5,7 +5,7 @@ module SimpleWorkflow
       app.middleware.insert_before ActionDispatch::Flash, SimpleWorkflow::Middleware
 
       # Make workflow test utility methods available in views
-      ApplicationHelper.send :include, SimpleWorkflow::Helper
+      ActionView::Base.send :include, SimpleWorkflow::Helper
 
       # Make workflow test utility methods available in controllers
       ActionController::Base.send :include, SimpleWorkflow::Helper

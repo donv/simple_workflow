@@ -1,4 +1,5 @@
 require_relative 'test_helper'
+require 'action_controller/metal/exceptions'
 
 class HelperTest < MiniTest::Test
   include SimpleWorkflow::Helper
