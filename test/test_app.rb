@@ -5,7 +5,6 @@ class TestApp < Rails::Application
   config.action_dispatch.key_generator = ActiveSupport::KeyGenerator.new('secret')
   config.logger = Logger.new(File.expand_path('../log/test.log', __dir__))
   config.secret_key_base = 'secret key base'
-  # config.secret_token = 'secret token'
 
   Rails.logger = config.logger
 

@@ -1,4 +1,5 @@
 require 'simple_workflow/detour'
+require 'active_support/core_ext/string/strip'
 
 # Rack middleware to detect and store detours and manage returns from detours.
 class SimpleWorkflow::Middleware
@@ -43,7 +44,6 @@ class SimpleWorkflow::Middleware
                               .is_a?(ActionDispatch::Session::CookieStore)
     session_size = workflow_size = nil
     session = session(env)
-    # env[ActionDispatch::Cookies::COOKIES_SERIALIZER]
     cookie_jar = cookie_jar(env)
     encryptor = encryptor(env)
     loop do
@@ -67,6 +67,10 @@ class SimpleWorkflow::Middleware
       simple_workflow: session exceeds cookie size limit: #{session_size} bytes.  Workflow empty!  Not My Fault!
     MSG
     Rails.logger.warn "simple_workflow: session: #{session.to_hash}"
+    remove_discarded_flashes(session)
+  end
+
+  def remove_discarded_flashes(session)
     return unless (old_flashes = session[:flash] && session[:flash]['discard'])
     Rails.logger.warn <<-MSG.strip_heredoc
       simple_workflow: found discarded flash entries: #{old_flashes}.  Deleting them.
