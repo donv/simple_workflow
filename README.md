@@ -22,21 +22,21 @@ with returns.
 
 In views:
 
-    detour_to :controller => :my_models, :action => :create
-    back_or_link_to :controller => :welcome, :action => :index
-    image_button_to :controller => :my_models, :action => :create
+    detour_to controller: :my_models, action: :create
+    back_or_link_to controller: :welcome, action: :index
+    image_button_to controller: :my_models, action: :create
 
     link_to 'Link with custom origin', with_detour(destination_path, origin_path)
 
 In controllers:
 
-    back_or_redirect_to :controller => :my_models, :action => :index
+    back_or_redirect_to controller: :my_models, action: :index
 
 In your tests:
 
     def test_valid_login_redirects_as_specified
       add_stored_detour "/bogus/location"
-      post :login, :user => { :login => "tesla", :password => "atest" }
+      post :login, user: { login: "tesla", password: "atest" }
       assert_logged_in users(:tesla)
       assert_response :redirect
       assert_redirected_to "http://#{request.host}/bogus/location"
@@ -44,7 +44,7 @@ In your tests:
 
 ## REQUIREMENTS
 
-* Ruby 2.2 or newer.  JRuby supported!
+* Ruby 2.2 or newer.  **JRuby** supported!
 * Rails 4.2 or newer.
 
 ## INSTALL
