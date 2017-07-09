@@ -13,10 +13,6 @@ jdk:
 env:
   - JRUBY_OPTS="--dev --debug"
 
-before_install:
-  - gem query -i -n '^bundler$' >/dev/null || gem install --no-doc bundler
-  - bundle install
-
 gemfile:
   - gemfiles/rails_5.1.gemfile
   - gemfiles/rails_5.0.gemfile
