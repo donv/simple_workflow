@@ -9,6 +9,16 @@ class HelperTest < MiniTest::Test
         with_detour('')
   end
 
+  def test_with_detour_with_origin
+    assert_equal '?detour%5Baction%5D=index&detour%5Bcontroller%5D=dashboard',
+        with_detour('', controller: :dashboard, action: :index)
+  end
+
+  def test_with_detour_with_only_anchor_as_origin
+    assert_equal '?detour%5Baction%5D=myaction&detour%5Banchor%5D=tab_2&detour%5Bcontroller%5D=mycontroller&detour%5Bid%5D=42&detour%5Bquery%5D%5Bnested%5D=criterium',
+        with_detour('', anchor: :tab_2)
+  end
+
   def test_detour_to
     assert_equal [
       'Link Text',
