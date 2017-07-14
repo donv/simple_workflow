@@ -34,6 +34,12 @@ module SimpleWorkflow::Helper
   # If the optional second argument is given, it is used as the origin.
   # If the given origin is only an anchor, it is added to the current page.
   def with_detour(options, origin = origin_options)
+    if origin.is_a?(String)
+      uri = URI(origin)
+      origin = Rails.application.routes.recognize_path uri.path
+      origin.update anchor: uri.fragment if uri.fragment.present?
+      origin.update Rack::Utils.parse_nested_query(uri.query) if uri.query.present?
+    end
     origin.update(origin_options) if origin.keys == [:anchor]
     url = url_for(options)
     url + (url =~ /\?/ ? '&' : '?') + origin.to_h.to_param('detour')

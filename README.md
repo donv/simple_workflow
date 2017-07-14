@@ -26,7 +26,7 @@ In views:
     back_or_link_to controller: :welcome, action: :index
     image_button_to controller: :my_models, action: :create
 
-    link_to 'Link with custom origin', with_detour(destination_path, origin_path)
+    link_to 'Link with custom origin', with_detour(destination, origin)
 
 In controllers:
 

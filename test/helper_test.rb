@@ -1,5 +1,6 @@
 require_relative 'test_helper'
 require 'action_controller/metal/exceptions'
+require 'test_app'
 
 class HelperTest < MiniTest::Test
   include SimpleWorkflow::Helper
@@ -17,6 +18,19 @@ class HelperTest < MiniTest::Test
   def test_with_detour_with_only_anchor_as_origin
     assert_equal '?detour%5Baction%5D=myaction&detour%5Banchor%5D=tab_2&detour%5Bcontroller%5D=mycontroller&detour%5Bid%5D=42&detour%5Bquery%5D%5Bnested%5D=criterium',
         with_detour('', anchor: :tab_2)
+  end
+
+  def test_with_detour_with_string_origin
+    Rails.application = TestApp.new
+
+    Rails.application.routes.draw do
+      get 'dashboard/index' => 'simple_workflow/#index'
+    end
+
+    assert_equal '?detour%5Baction%5D=index&detour%5Banchor%5D=tab_2&detour%5Bcontroller%5D=simple_workflow%2F&detour%5Bhullo%5D=1',
+        with_detour('', '/dashboard/index?hullo=1#tab_2')
+  ensure
+    Rails.application = nil
   end
 
   def test_detour_to
