@@ -13,12 +13,12 @@ AllCops:
 Rails:
   Enabled: true
 
-Metrics/LineLength:
-  Max: 100
-
-Style/AlignParameters:
+Layout/AlignParameters:
   EnforcedStyle: with_fixed_indentation
   IndentationWidth: 4
+
+Metrics/LineLength:
+  Max: 100
 
 Style/ClassAndModuleChildren:
   Enabled: false
