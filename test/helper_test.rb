@@ -79,7 +79,9 @@ class HelperTest < MiniTest::Test
   end
 
   def params
-    { controller: 'mycontroller', action: 'myaction', id: 42, query: { nested: 'criterium' } }
+    ActionController::Parameters.new(
+      controller: 'mycontroller', action: 'myaction', id: 42, query: { nested: 'criterium' }
+    )
   end
 
   def session
