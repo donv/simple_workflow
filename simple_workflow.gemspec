@@ -21,5 +21,5 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency('simplecov', '~>0.9')
   s.add_development_dependency('minitest-reporters', '~>1.0')
-  s.add_development_dependency('rubocop', '~>0.45')
+  s.add_development_dependency('rubocop', '~>0.49')
 end
