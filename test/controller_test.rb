@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'test_helper'
 require 'rails'
 
@@ -6,9 +8,11 @@ class ControllerTest < MiniTest::Test
   attr_accessor :cookies, :logger, :session
 
   def setup
-    options = { encrypted_cookie_salt: 'salt1', encrypted_signed_cookie_salt: 'salt2', secret_key_base: 'secret_key_base' }
+    options = { encrypted_cookie_salt: 'salt1', encrypted_signed_cookie_salt: 'salt2',
+        secret_key_base: 'secret_key_base' }
     if Rails.gem_version < Gem::Version.new('5')
-      @cookies = ActionDispatch::Cookies::CookieJar.new(ActiveSupport::KeyGenerator.new('secret'), nil, false, options)
+      @cookies = ActionDispatch::Cookies::CookieJar
+          .new(ActiveSupport::KeyGenerator.new('secret'), nil, false, options)
     end
     @logger = Rails.logger
     @session = {}
@@ -32,7 +36,7 @@ class ControllerTest < MiniTest::Test
     assert_equal({}, session)
   end
 
-  def test_back_with_invalid_detour # not route
+  def test_back_with_invalid_detour
     store_detour(controller: :mycontroller, action: :missing_in_action)
     @bad_route = true
     back({})

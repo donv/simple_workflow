@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'simple_workflow/detour'
 require 'active_support/core_ext/string/strip'
 
@@ -40,8 +42,7 @@ class SimpleWorkflow::Middleware
   end
 
   def remove_old_detours(env)
-    return unless session(env).instance_variable_get('@by')
-                              .is_a?(ActionDispatch::Session::CookieStore)
+    return unless session(env).instance_variable_get('@by').is_a?(ActionDispatch::Session::CookieStore)
     session_size = workflow_size = nil
     session = session(env)
     cookie_jar = cookie_jar(env)
@@ -52,10 +53,8 @@ class SimpleWorkflow::Middleware
       wf_ser_val = serialize_session(cookie_jar, session[:detours])
       workflow_size = encryptor.encrypt_and_sign(wf_ser_val).size
       break unless workflow_size >= 2048 ||
-                   (session_size >= 3072 && session[:detours] && !session[:detours].empty?)
-      Rails.logger.warn(
-        "Workflow too large (#{workflow_size}/#{session_size}).  Dropping oldest detour."
-      )
+          (session_size >= 3072 && session[:detours] && !session[:detours].empty?)
+      Rails.logger.warn("Workflow too large (#{workflow_size}/#{session_size}).  Dropping oldest detour.")
       session[:detours].shift
       reset_workflow(session) if session[:detours].empty?
     end
@@ -94,9 +93,8 @@ class SimpleWorkflow::Middleware
     @simple_workflow_encryptor = cookie_jar(env).instance_variable_get(:@encryptor)
     return @simple_workflow_encryptor if @simple_workflow_encryptor
     Rails.logger.warn 'simple_workflow: Could not get encryptor from the cookie jar'
-    secret_key_base = Rails.application.config.secret_key_base ||
-                      Rails.application.config.secret_token ||
-                      SecureRandom.hex(64)
+    secret_key_base = Rails.application.config.secret_key_base || Rails.application.config.secret_token ||
+        SecureRandom.hex(64)
     key_generator = ActiveSupport::KeyGenerator.new(secret_key_base, iterations: 1000)
     key_generator = ActiveSupport::CachingKeyGenerator.new(key_generator)
     secret = key_generator.generate_key('encrypted cookie')
@@ -105,9 +103,7 @@ class SimpleWorkflow::Middleware
   end
 
   def store_detour_from_params(env)
-    if params(env)[:detour]
-      store_detour_in_session(session(env), params(env)[:detour])
-    end
+    store_detour_in_session(session(env), params(env)[:detour]) if params(env)[:detour]
     return unless params(env)[:return_from_detour] && session(env)[:detours]
     pop_detour(session(env))
   end

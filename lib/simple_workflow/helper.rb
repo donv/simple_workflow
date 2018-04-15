@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'detour'
 
 # View helper methods augmented with breadcrumb management.

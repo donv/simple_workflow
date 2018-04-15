@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 require 'rake'
 require 'rake/clean'
 require 'rake/testtask'
 require File.dirname(__FILE__) + '/lib/simple_workflow/version'
 
-GEM_FILE      = "simple_workflow-#{SimpleWorkflow::VERSION}.gem".freeze
-GEM_SPEC_FILE = 'simple_workflow.gemspec'.freeze
+GEM_FILE      = "simple_workflow-#{SimpleWorkflow::VERSION}.gem"
+GEM_SPEC_FILE = 'simple_workflow.gemspec'
 
 CLEAN.include('simple_workflow-*.gem', 'tmp')
 

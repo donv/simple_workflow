@@ -1,27 +1,119 @@
 inherit_from: .rubocop_todo.yml
 
 AllCops:
-  TargetRubyVersion: 2.2
+  TargetRubyVersion: 2.3
   DisplayCopNames: true
   DisplayStyleGuide: true
   Include:
     - '**/Gemfile'
     - '**/Rakefile'
+    - 'config.ru'
+    - '*.gemspec'
+    - 'exe/*'
   Exclude:
-    - 'gemfiles/vendor/**/*'
+    - 'classes/**/*'
+    - 'node_modules/**/*'
+    - 'public/**/*'
+    - 'tmp/**/*'
 
-Rails:
-  Enabled: true
+# Typical construction is
+#   assert_match /something/, test_subject
+Lint/AmbiguousRegexpLiteral:
+  Exclude:
+    - 'test/**/*.rb'
+
+Layout/AlignHash:
+  EnforcedLastArgumentHashStyle: ignore_implicit
 
 Layout/AlignParameters:
   EnforcedStyle: with_fixed_indentation
   IndentationWidth: 4
 
+Layout/FirstParameterIndentation:
+  EnforcedStyle: consistent
+  IndentationWidth: 4
+
+Layout/IndentArray:
+  EnforcedStyle: consistent
+
+Layout/IndentHash:
+  EnforcedStyle: consistent
+
+Layout/IndentAssignment:
+  IndentationWidth: 4
+
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
+  IndentationWidth: 4
+
+Layout/MultilineOperationIndentation:
+  EnforcedStyle: indented
+  IndentationWidth: 4
+
+Metrics/BlockLength:
+  Exclude:
+    - '*.gemspec'
+    - 'config/environments/development.rb'
+    - 'config/environments/production.rb'
+    - 'config/routes.rb'
+    - 'db/schema*.rb'
+
 Metrics/LineLength:
-  Max: 100
+  Max: 107
+  AllowHeredoc: true
+  AllowURI: true
+  IgnoreCopDirectives: true
+  Exclude:
+    - 'config/initializers/secret_token.rb'
+    - 'db/schema*.rb'
+
+Naming/VariableNumber:
+  Enabled: false
+
+Rails:
+  Enabled: true
+
+Rails/ApplicationRecord:
+  Exclude:
+    - 'db/migrate/*.rb'
+
+Rails/FilePath:
+  Enabled: false
+
+Security/Eval:
+  Exclude:
+    - gemfiles/*.gemfile # We know of no other way to share common Gemfile partials
 
 Style/ClassAndModuleChildren:
   Enabled: false
 
+Style/Documentation:
+  Enabled: false
+
+Style/DoubleNegation:
+  Enabled: false
+
+Style/Encoding:
+  Enabled: true
+
+Style/FormatString:
+  EnforcedStyle: percent
+
+Style/Lambda:
+  EnforcedStyle: literal
+
+Style/NumericLiterals:
+  Exclude:
+    - 'db/schema*.rb'
+
+Style/NumericPredicate:
+  Enabled: false
+
 Style/SafeNavigation:
   ConvertCodeThatCanStartToReturnNil: true
+
+Style/TrailingCommaInArrayLiteral:
+  EnforcedStyleForMultiline: comma
+
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: comma

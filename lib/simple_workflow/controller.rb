@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'simple_workflow/detour'
 
 # Mixin to add controller methods for workflow navigation.
@@ -38,7 +40,7 @@ module SimpleWorkflow::Controller
       redirect_to detour, response_status_and_flash
     end
     true
-  rescue
+  rescue StandardError
     retry
   end
 
@@ -62,13 +64,13 @@ module SimpleWorkflow::Controller
 
   def redirect_to_post(options)
     url = url_for options
-    render text: <<EOF.strip_heredoc, layout: false
+    render text: <<~HTML.strip_heredoc, layout: false
       <html>
         <body onload="document.getElementById('form').submit()">
           <form id="form" action="#{url}" method="POST">
           </form>
         </body>
       </html>
-EOF
+     HTML
   end
 end

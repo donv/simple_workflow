@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 unless $LOAD_PATH.include?(__dir__) || $LOAD_PATH.include?(File.expand_path(__dir__))
   $LOAD_PATH.unshift(__dir__)
 end

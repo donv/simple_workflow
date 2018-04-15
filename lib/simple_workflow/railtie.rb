@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SimpleWorkflow
   # Railtie to activate the middleware.
   class Railtie < Rails::Railtie

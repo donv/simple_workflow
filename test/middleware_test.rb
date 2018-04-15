@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'test_helper'
 require 'simple_workflow/middleware'
 require_relative 'test_app'
@@ -42,12 +44,12 @@ class MiddlewareTest < MiniTest::Test
   def test_detour_cleanup
     _, env, = @stack.call env_for('/?detour[controller]=test_first')
     (50..99).each do |i|
-      next_env = env_for("/?detour[controller]=test_#{i}", 'rack.session' => env['rack.session'],
-                                                           'rack.session.options' => env['rack.session.options'])
+      next_env = env_for("/?detour[controller]=test_#{i}",
+          'rack.session' => env['rack.session'], 'rack.session.options' => env['rack.session.options'])
       _, env, = @stack.call next_env
     end
-    last_env = env_for('/?detour[controller]=test_last', 'rack.session' => env['rack.session'],
-                                                         'rack.session.options' => env['rack.session.options'])
+    last_env = env_for('/?detour[controller]=test_last',
+        'rack.session' => env['rack.session'], 'rack.session.options' => env['rack.session.options'])
     status, env, response = @stack.call last_env
 
     assert_equal 200, status
