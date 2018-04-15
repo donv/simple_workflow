@@ -53,7 +53,7 @@ class SimpleWorkflow::Middleware
       wf_ser_val = serialize_session(cookie_jar, session[:detours])
       workflow_size = encryptor.encrypt_and_sign(wf_ser_val).size
       break unless workflow_size >= 2048 ||
-          (session_size >= 3072 && session[:detours] && !session[:detours].empty?)
+            (session_size >= 3072 && session[:detours] && !session[:detours].empty?)
       Rails.logger.warn("Workflow too large (#{workflow_size}/#{session_size}).  Dropping oldest detour.")
       session[:detours].shift
       reset_workflow(session) if session[:detours].empty?

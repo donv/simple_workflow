@@ -92,10 +92,12 @@ class MiddlewareTest < MiniTest::Test
 
   def env_for(url, opts = {})
     default_opts = {
+      ActionDispatch::Cookies::COOKIES_ROTATIONS => Struct.new(:encrypted).new([]),
       ActionDispatch::Cookies::COOKIES_SERIALIZER => :json,
+      ActionDispatch::Cookies::ENCRYPTED_COOKIE_SALT => 'salt',
+      ActionDispatch::Cookies::ENCRYPTED_SIGNED_COOKIE_SALT => 'signed_salt',
       ActionDispatch::Cookies::GENERATOR_KEY => ActiveSupport::KeyGenerator.new('secret'),
       ActionDispatch::Cookies::SECRET_KEY_BASE => 'secret',
-      # ActionDispatch::Cookies::SECRET_TOKEN => 'secret',
     }
     Rack::MockRequest.env_for(url, default_opts.update(opts))
   end

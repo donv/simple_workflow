@@ -9,7 +9,7 @@ class ControllerTest < MiniTest::Test
 
   def setup
     options = { encrypted_cookie_salt: 'salt1', encrypted_signed_cookie_salt: 'salt2',
-        secret_key_base: 'secret_key_base' }
+                secret_key_base: 'secret_key_base' }
     if Rails.gem_version < Gem::Version.new('5')
       @cookies = ActionDispatch::Cookies::CookieJar
           .new(ActiveSupport::KeyGenerator.new('secret'), nil, false, options)
