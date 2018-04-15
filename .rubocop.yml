@@ -12,6 +12,7 @@ AllCops:
     - 'exe/*'
   Exclude:
     - 'classes/**/*'
+    - 'gemfiles/vendor/**/*'
     - 'node_modules/**/*'
     - 'public/**/*'
     - 'tmp/**/*'
