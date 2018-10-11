@@ -105,6 +105,7 @@ class SimpleWorkflow::Middleware
   def store_detour_from_params(env)
     store_detour_in_session(session(env), params(env)[:detour]) if params(env)[:detour]
     return unless params(env)[:return_from_detour] && session(env)[:detours]
-    pop_detour(session(env), params(env).to_h.reject { |k, _v| %i[detour return_from_detour].include? k.to_sym })
+    params_hash = params(env).to_h.reject { |k, _v| %i[detour return_from_detour].include? k.to_sym }
+    pop_detour(session(env), params_hash)
   end
 end
