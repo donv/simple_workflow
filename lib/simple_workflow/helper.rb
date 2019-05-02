@@ -84,7 +84,12 @@ module SimpleWorkflow::Helper
     !session[:detours].nil?
   end
 
-  def back_or_link_to(title, options = nil, html_options = nil)
+  def back_or_link_to(title, options = nil, html_options = nil, &block)
+    if block
+      html_options = options
+      options = title
+      title = nil
+    end
     if session[:detours]
       link_options = { return_from_detour: true }.update(session[:detours].last)
 
@@ -97,7 +102,13 @@ module SimpleWorkflow::Helper
       link_options = options
     end
 
-    link_to(title, link_options, html_options) if link_options
+    if link_options
+      if block
+        link_to(link_options, html_options, &block)
+      else
+        link_to(title, link_options, html_options)
+      end
+    end
   rescue ActionController::UrlGenerationError => e
     if session[:detours]
       logger.error "Exception linking to origin: #{e.class} #{e}"
