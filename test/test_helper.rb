@@ -13,8 +13,4 @@ MiniTest::Reporters.use!
 require 'rails'
 require 'simple_workflow'
 
-if Gem::Requirement.new('~>4.2') =~ Gem::Version.new(Rails.version)
-  ActiveSupport::TestCase.test_order = :random
-end
-
 FileUtils.mkdir_p File.expand_path '../log', __dir__

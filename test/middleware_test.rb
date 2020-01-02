@@ -92,6 +92,7 @@ class MiddlewareTest < MiniTest::Test
 
   def env_for(url, opts = {})
     default_opts = {
+      ActionDispatch::Cookies::COOKIES_ROTATIONS => ActiveSupport::Messages::RotationConfiguration.new,
       ActionDispatch::Cookies::COOKIES_SERIALIZER => :json,
       ActionDispatch::Cookies::ENCRYPTED_COOKIE_SALT => 'salt',
       ActionDispatch::Cookies::ENCRYPTED_SIGNED_COOKIE_SALT => 'signed_salt',
