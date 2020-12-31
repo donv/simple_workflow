@@ -2,10 +2,11 @@ language: ruby
 sudo: false
 cache: bundler
 rvm:
-  - 2.7.0
-  - 2.6.5
-  - 2.5.7
-  - jruby-9.2.9.0
+  - 3.0.0
+  - 2.7.2
+  - 2.6.6
+  - 2.5.8
+  - jruby-9.2.14.0
 
 jdk:
   - oraclejdk8
