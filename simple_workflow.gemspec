@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency('rails', '>=4.2', '<6.1')
 
   s.add_development_dependency('minitest-reporters', '~>1.0')
-  s.add_development_dependency('rubocop', '~>0.49')
+  s.add_development_dependency('rubocop', '~>1.0')
   s.add_development_dependency('rubocop-performance', '~>1.5')
   s.add_development_dependency('rubocop-rails', '~>2.4')
   s.add_development_dependency('simplecov', '~>0.9')

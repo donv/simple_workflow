@@ -31,6 +31,7 @@ module SimpleWorkflow::Controller
 
   def back(response_status_and_flash)
     return false if session[:detours].nil?
+
     detour = pop_detour(session)
     post = detour.delete(:request_method) == :post
     if post
@@ -58,6 +59,7 @@ module SimpleWorkflow::Controller
     end
 
     return unless (other_flashes = response_status_and_flash.delete(:flash))
+
     flash.update(other_flashes)
   end
   private :save_flash
@@ -71,6 +73,6 @@ module SimpleWorkflow::Controller
           </form>
         </body>
       </html>
-     HTML
+    HTML
   end
 end

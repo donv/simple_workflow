@@ -45,11 +45,13 @@ class MiddlewareTest < MiniTest::Test
     _, env, = @stack.call env_for('/?detour[controller]=test_first')
     (50..99).each do |i|
       next_env = env_for("/?detour[controller]=test_#{i}",
-          'rack.session' => env['rack.session'], 'rack.session.options' => env['rack.session.options'])
+                         'rack.session' => env['rack.session'],
+                         'rack.session.options' => env['rack.session.options'])
       _, env, = @stack.call next_env
     end
     last_env = env_for('/?detour[controller]=test_last',
-        'rack.session' => env['rack.session'], 'rack.session.options' => env['rack.session.options'])
+                       'rack.session' => env['rack.session'],
+                       'rack.session.options' => env['rack.session.options'])
     status, env, response = @stack.call last_env
 
     assert_equal 200, status
@@ -57,7 +59,7 @@ class MiddlewareTest < MiniTest::Test
     assert_equal(%w[session_id detours], env['rack.session'].to_hash.keys)
 
     assert_equal(((57..99).to_a + [:last]).map { |i| { 'controller' => "test_#{i}" } },
-        env['rack.session'].to_hash['detours'])
+                 env['rack.session'].to_hash['detours'])
   end
 
   def test_huge_detour_over_4k
@@ -77,8 +79,8 @@ class MiddlewareTest < MiniTest::Test
   def test_return_from_detour
     _, headers1, = @stack.call env_for('/?detour[controller]=test_first')
     env = env_for('/?return_from_detour=true',
-        'rack.session' => headers1['rack.session'],
-        'rack.session.options' => headers1['rack.session.options'])
+                  'rack.session' => headers1['rack.session'],
+                  'rack.session.options' => headers1['rack.session.options'])
     status, headers, response = @stack.call env
 
     assert_equal 200, status
@@ -99,7 +101,7 @@ class MiddlewareTest < MiniTest::Test
       ActionDispatch::Cookies::GENERATOR_KEY => ActiveSupport::KeyGenerator.new('secret'),
       ActionDispatch::Cookies::SECRET_KEY_BASE => 'secret',
     }
-    if Rails.version =~ /^5\.2\./
+    if /^5\.2\./.match?(Rails.version)
       default_opts[ActionDispatch::Cookies::COOKIES_ROTATIONS] = Struct.new(:encrypted).new([])
     end
     Rack::MockRequest.env_for(url, default_opts.update(opts))

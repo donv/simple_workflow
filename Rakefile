@@ -3,7 +3,7 @@
 require 'rake'
 require 'rake/clean'
 require 'rake/testtask'
-require File.dirname(__FILE__) + '/lib/simple_workflow/version'
+require "#{File.dirname(__FILE__)}/lib/simple_workflow/version"
 
 GEM_FILE      = "simple_workflow-#{SimpleWorkflow::VERSION}.gem"
 GEM_SPEC_FILE = 'simple_workflow.gemspec'

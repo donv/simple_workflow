@@ -21,6 +21,7 @@ module SimpleWorkflow::Detour
   def pop_detour(session, origin_options = nil)
     detours = session[:detours]
     return nil unless detours
+
     detour = detours.delete(origin_options) || detours.pop
     Rails.logger.debug "popped detour: #{detour.inspect} #{session[:detours].size} more"
     reset_workflow(session) if detours.empty?

@@ -10,18 +10,24 @@ class HelperTest < MiniTest::Test
   def test_with_detour
     assert_equal '?detour%5Baction%5D=myaction&detour%5Bcontroller%5D=mycontroller&detour%5Bid%5D=42' \
             '&detour%5Bquery%5D%5Bnested%5D=criterium',
-        with_detour('')
+                 with_detour('')
   end
 
   def test_with_detour_with_origin
     assert_equal '?detour%5Baction%5D=index&detour%5Bcontroller%5D=dashboard',
-        with_detour('', controller: :dashboard, action: :index)
+                 with_detour('', controller: :dashboard, action: :index)
   end
 
   def test_with_detour_with_only_anchor_as_origin
     assert_equal '?detour%5Baction%5D=myaction&detour%5Banchor%5D=tab_2' \
           '&detour%5Bcontroller%5D=mycontroller&detour%5Bid%5D=42&detour%5Bquery%5D%5Bnested%5D=criterium',
-        with_detour('', anchor: :tab_2)
+                 with_detour('', anchor: :tab_2)
+  end
+
+  module SimpleWorkflow::Controller
+    def self.binary_params_for?(_action)
+      false
+    end
   end
 
   def test_with_detour_with_string_origin
@@ -33,7 +39,7 @@ class HelperTest < MiniTest::Test
 
     assert_equal '?detour%5Baction%5D=index&detour%5Banchor%5D=tab_2' \
             '&detour%5Bcontroller%5D=simple_workflow%2F&detour%5Bhullo%5D=1',
-        with_detour('', '/dashboard/index?hullo=1#tab_2')
+                 with_detour('', '/dashboard/index?hullo=1#tab_2')
   ensure
     Rails.application = nil
   end
@@ -45,7 +51,7 @@ class HelperTest < MiniTest::Test
           '&detour%5Bquery%5D%5Bnested%5D=criterium',
       { id: 'link_tag_id', title: 'Link title' },
     ],
-        detour_to('Link Text', 'Link target', id: 'link_tag_id', title: 'Link title')
+                 detour_to('Link Text', 'Link target', id: 'link_tag_id', title: 'Link title')
   end
 
   def test_image_button_to
@@ -56,26 +62,27 @@ class HelperTest < MiniTest::Test
         onclick: "form.action='{:id=>\"image_tag_id\"}'"
       }
     ],
-        image_button_to('my_image.png', 'Link Title', { id: 'image_tag_id' }, title: 'Image title')
+                 image_button_to('my_image.png', 'Link Title', { id: 'image_tag_id' },
+                                 title: 'Image title')
   end
 
   def test_image_link_to
     assert_equal [
       ['my_image.png', { title: 'Link Title', alt: 'Link Title' }], { id: 'image_tag_id' }, nil
     ],
-        image_link_to('my_image.png', 'Link Title', { id: 'image_tag_id' }, title: 'Image title')
+                 image_link_to('my_image.png', 'Link Title', { id: 'image_tag_id' }, title: 'Image title')
   end
 
   def test_back_or_link_to
     assert_equal ['Link title', { controller: :mycontroller, action: :my_action }, nil],
-        back_or_link_to('Link title', controller: :mycontroller, action: :my_action)
+                 back_or_link_to('Link title', controller: :mycontroller, action: :my_action)
   end
 
   def test_back_or_link_to_with_routing_error
     @session = { detours: [{ controller: :does_not_exist }] }
     @routing_error = ActionController::UrlGenerationError
     assert_equal ['Link title', { controller: :mycontroller, action: :my_action }, nil],
-        back_or_link_to('Link title', controller: :mycontroller, action: :my_action)
+                 back_or_link_to('Link title', controller: :mycontroller, action: :my_action)
   end
 
   private
@@ -87,7 +94,7 @@ class HelperTest < MiniTest::Test
   def params
     ActionController::Parameters.new(
         controller: 'mycontroller', action: 'myaction', id: 42, query: { nested: 'criterium' }
-    )
+      )
   end
 
   def session

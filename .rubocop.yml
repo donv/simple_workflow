@@ -4,6 +4,7 @@ require:
   - rubocop-rails
 
 AllCops:
+  NewCops: enable
   TargetRubyVersion: 2.5
   DisplayCopNames: true
   DisplayStyleGuide: true
@@ -13,6 +14,8 @@ AllCops:
     - 'config.ru'
     - '*.gemspec'
     - 'exe/*'
+    - 'lib/**/*.rb'
+    - 'test/**/*.rb'
   Exclude:
     - 'classes/**/*'
     - 'gemfiles/vendor/**/*'
