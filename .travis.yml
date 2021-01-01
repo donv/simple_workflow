@@ -9,7 +9,7 @@ rvm:
   - jruby-9.2.14.0
 
 jdk:
-  - oraclejdk8
+  - openjdk11
 
 env:
   - JRUBY_OPTS="--dev --debug"
