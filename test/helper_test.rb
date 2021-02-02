@@ -109,7 +109,7 @@ class HelperTest < MiniTest::Test
     if defined?(@routing_error) && @routing_error
       e = @routing_error
       @routing_error = nil
-      raise e
+      raise e, 'Error'
     end
     options
   end
