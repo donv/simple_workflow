@@ -5,12 +5,12 @@ require:
 
 AllCops:
   NewCops: enable
-  TargetRubyVersion: 2.5
+  TargetRubyVersion: 2.7
   DisplayCopNames: true
   DisplayStyleGuide: true
   Include:
-    - '**/Gemfile'
-    - '**/Rakefile'
+    - 'Gemfile'
+    - 'Rakefile'
     - 'config.ru'
     - '*.gemspec'
     - 'exe/*'
