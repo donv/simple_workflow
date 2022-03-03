@@ -2,7 +2,7 @@ simple_workflow
 ===============
 
 [![Gem Version](https://badge.fury.io/rb/simple_workflow.svg)](https://badge.fury.io/rb/simple_workflow)
-[![Build Status](https://travis-ci.org/donv/simple_workflow.svg?branch=master)](https://travis-ci.org/donv/simple_workflow)
+[![Test](https://github.com/donv/simple_workflow/actions/workflows/test.yml/badge.svg)](https://github.com/donv/simple_workflow/actions/workflows/test.yml)
 
 * http://github.com/donv/simple_workflow
 * http://rubydoc.info/gems/simple_workflow
