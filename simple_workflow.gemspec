@@ -18,6 +18,7 @@ Gem::Specification.new do |s|
 
   s.add_runtime_dependency('rails', '>=6.2', '<8')
 
+  s.add_development_dependency 'rake'
   s.add_development_dependency('rubocop', '~>1.0')
   s.add_development_dependency('rubocop-performance', '~>1.5')
   s.add_development_dependency('rubocop-rails', '~>2.4')
