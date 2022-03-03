@@ -2,7 +2,7 @@
 
 source 'https://rubygems.org/'
 
-File.read(File.expand_path('../simple_workflow.gemspec', __dir__))
+File.read('simple_workflow.gemspec')
     .scan(/^\s*s\.add_development_dependency\('(.*)', '(.*)'\)/).each do |dependency|
   gem(*dependency)
 end
