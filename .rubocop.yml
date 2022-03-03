@@ -22,6 +22,7 @@ AllCops:
     - 'node_modules/**/*'
     - 'public/**/*'
     - 'tmp/**/*'
+    - 'vendor/bundle/**/*'
 
 # Typical construction is
 #   assert_match /something/, test_subject
