@@ -7,7 +7,6 @@ require 'date'
 Gem::Specification.new do |s|
   s.name = 'simple_workflow'
   s.version = SimpleWorkflow::VERSION
-  s.date = Date.today.strftime '%Y-%m-%d' # rubocop:disable Rails/Date
   s.authors = ['Uwe Kubosch']
   s.email = 'uwe@kubosch.no'
   s.summary = 'Add simple breadcrumbs "detour" workflow to Ruby On Rails.'
@@ -17,11 +16,11 @@ Gem::Specification.new do |s|
   s.licenses = %w[MIT]
   s.files = FileList['[A-Z]*', 'lib/**/*', 'test/**/*'].to_a
 
-  s.add_runtime_dependency('rails', '>=4.2', '<7')
+  s.add_runtime_dependency('rails', '>=6.2', '<8')
 
-  s.add_development_dependency('minitest-reporters', '~>1.0')
   s.add_development_dependency('rubocop', '~>1.0')
   s.add_development_dependency('rubocop-performance', '~>1.5')
   s.add_development_dependency('rubocop-rails', '~>2.4')
   s.add_development_dependency('simplecov', '~>0.9')
+  s.metadata['rubygems_mfa_required'] = 'true'
 end

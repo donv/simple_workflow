@@ -42,7 +42,7 @@ class SimpleWorkflow::Middleware
   end
 
   def remove_old_detours(env)
-    return unless session(env).instance_variable_get('@by').is_a?(ActionDispatch::Session::CookieStore)
+    return unless session(env).instance_variable_get(:@by).is_a?(ActionDispatch::Session::CookieStore)
 
     session_size = workflow_size = nil
     session = session(env)

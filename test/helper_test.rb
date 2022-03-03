@@ -9,7 +9,7 @@ class HelperTest < MiniTest::Test
 
   def test_with_detour
     assert_equal '?detour%5Baction%5D=myaction&detour%5Bcontroller%5D=mycontroller&detour%5Bid%5D=42' \
-            '&detour%5Bquery%5D%5Bnested%5D=criterium',
+                 '&detour%5Bquery%5D%5Bnested%5D=criterium',
                  with_detour('')
   end
 
@@ -20,7 +20,8 @@ class HelperTest < MiniTest::Test
 
   def test_with_detour_with_only_anchor_as_origin
     assert_equal '?detour%5Baction%5D=myaction&detour%5Banchor%5D=tab_2' \
-          '&detour%5Bcontroller%5D=mycontroller&detour%5Bid%5D=42&detour%5Bquery%5D%5Bnested%5D=criterium',
+                 '&detour%5Bcontroller%5D=mycontroller&detour%5Bid%5D=42' \
+                 '&detour%5Bquery%5D%5Bnested%5D=criterium',
                  with_detour('', anchor: :tab_2)
   end
 
@@ -38,7 +39,7 @@ class HelperTest < MiniTest::Test
     end
 
     assert_equal '?detour%5Baction%5D=index&detour%5Banchor%5D=tab_2' \
-            '&detour%5Bcontroller%5D=simple_workflow%2F&detour%5Bhullo%5D=1',
+                 '&detour%5Bcontroller%5D=simple_workflow%2F&detour%5Bhullo%5D=1',
                  with_detour('', '/dashboard/index?hullo=1#tab_2')
   ensure
     Rails.application = nil
@@ -48,7 +49,7 @@ class HelperTest < MiniTest::Test
     assert_equal [
       'Link Text',
       'Link target?detour%5Baction%5D=myaction&detour%5Bcontroller%5D=mycontroller&detour%5Bid%5D=42' \
-          '&detour%5Bquery%5D%5Bnested%5D=criterium',
+      '&detour%5Bquery%5D%5Bnested%5D=criterium',
       { id: 'link_tag_id', title: 'Link title' },
     ],
                  detour_to('Link Text', 'Link target', id: 'link_tag_id', title: 'Link title')
