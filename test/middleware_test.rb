@@ -63,9 +63,9 @@ class MiddlewareTest < MiniTest::Test
   end
 
   def test_huge_detour_over_4k
-    # rubocop:disable Metrics/LineLength
+    # rubocop:disable Layout/LineLength
     query = "/orders/TeYphD2wcYyBDFaKTnmAog/edit?detour%5Baction%5D=index&detour%5Bcommit%5D=Search&detour%5Bcontroller%5D=order_drilldown&detour%5Bdrilldown_search%5D%5Bdimensions%5D%5B%5D=arrival&detour%5Bdrilldown_search%5D%5Bdimensions%5D%5B%5D=delay&detour%5Bdrilldown_search%5D%5Bdisplay_type%5D=NONE&detour%5Bdrilldown_search%5D%5Bfields%5D%5Bactual_time%5D=1&detour%5Bdrilldown_search%5D%5Bfields%5D%5Bcomments%5D=1&detour%5Bdrilldown_search%5D%5Bfields%5D%5Bdelay%5D=1&detour%5Bdrilldown_search%5D%5Bfields%5D%5Bdescription%5D=1&detour%5Bdrilldown_search%5D%5Bfields%5D%5Bdirection%5D=0&detour%5Bdrilldown_search%5D%5Bfields%5D%5Bdrop_off_stand%5D=0&detour%5Bdrilldown_search%5D%5Bfields%5D%5Bestimated%5D=1&detour%5Bdrilldown_search%5D%5Bfields%5D%5Bfirst_vehicle%5D=1&detour%5Bdrilldown_search%5D%5Bfields%5D%5Bofb%5D=0&detour%5Bdrilldown_search%5D%5Bfields%5D%5Bonb%5D=0&detour%5Bdrilldown_search%5D%5Bfields%5D%5Boperation%5D=0&detour%5Bdrilldown_search%5D%5Bfields%5D%5Bpick_up%5D=1&detour%5Bdrilldown_search%5D%5Bfields%5D%5Bpick_up_stand%5D=0&detour%5Bdrilldown_search%5D%5Bfields%5D%5Bplanned%5D=0&detour%5Bdrilldown_search%5D%5Bfields%5D%5Bprobable%5D=1&detour%5Bdrilldown_search%5D%5Bfields%5D%5Bscheduled%5D=1&detour%5Bdrilldown_search%5D%5Bfields%5D%5Bsta%5D=0&detour%5Bdrilldown_search%5D%5Bfields%5D%5Btime%5D=0&detour%5Bdrilldown_search%5D%5Bfilter%5D%5Barrival%5D%5B%5D=Arrival&detour%5Bdrilldown_search%5D%5Bfilter%5D%5Barrival%5D%5B%5D=Departure&detour%5Bdrilldown_search%5D%5Bfilter%5D%5Bcalendar_date%5D%5B%5D=2016-03-01&detour%5Bdrilldown_search%5D%5Blist%5D=1&detour%5Bdrilldown_search%5D%5Blist_change_times%5D=0&detour%5Bdrilldown_search%5D%5Border_by_value%5D=0&detour%5Bdrilldown_search%5D%5Bpercent%5D=1&detour%5Bdrilldown_search%5D%5Bselect_value%5D=COUNT&detour%5Bdrilldown_search%5D%5Btitle%5D=OSL+Daily+Delay+Report+2016-04-16#{'+etc' * 200}&detour%5Butf8%5D=%E2%9C%93"
-    # rubocop:enable Metrics/LineLength
+    # rubocop:enable Layout/LineLength
     env = env_for(query)
 
     status, headers, response = @stack.call env

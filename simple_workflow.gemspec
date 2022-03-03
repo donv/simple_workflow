@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require 'rake'
 require './lib/simple_workflow/version'
 require 'date'
 
@@ -14,7 +13,7 @@ Gem::Specification.new do |s|
   s.description = 'Expands Ruby on Rails to allow simple breadcrumb detour workflows.'
   s.required_ruby_version = '>= 2.5', '<4'
   s.licenses = %w[MIT]
-  s.files = FileList['[A-Z]*', 'lib/**/*', 'test/**/*'].to_a
+  s.files = Dir['[A-Z]*', 'lib/**/*', 'test/**/*']
 
   s.add_runtime_dependency('rails', '>=6.2', '<8')
 
