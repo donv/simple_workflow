@@ -18,7 +18,7 @@ class ControllerTest < MiniTest::Test
     @session = {}
     @bad_route = false
     # TODO(uwe):  Remove when we stop testing Rails 4.1
-    Rails.app_class = TestApp if Rails.version !~ /^4\.1\./
+    Rails.app_class = TestApp unless /^4\.1\./.match?(Rails.version)
     # ODOT
   end
 

@@ -44,7 +44,7 @@ module SimpleWorkflow::Helper
     end
     origin.update(origin_options) if origin.keys == [:anchor]
     url = url_for(options)
-    url + (url =~ /\?/ ? '&' : '?') + origin.to_h.to_param('detour')
+    url + (/\?/.match?(url) ? '&' : '?') + origin.to_h.to_param('detour')
   end
 
   def origin_options
@@ -58,9 +58,10 @@ module SimpleWorkflow::Helper
   end
 
   def image_link_to(image_source, title, url_options, image_options = nil, link_options = nil)
-    if link_options == true
+    case link_options
+    when true
       link_options = { method: :post }
-    elsif link_options == false
+    when false
       link_options = nil
     end
     image_options ||= { class: 'image-submit' }
@@ -70,9 +71,10 @@ module SimpleWorkflow::Helper
 
   def image_link_to_remote(image_source, title, link_options, image_options = nil,
       html_options = {})
-    if html_options == true
+    case html_options
+    when true
       html_options = { method: :post }
-    elsif html_options == false
+    when false
       html_options = {}
     end
     image_options ||= { class: 'image-submit' }

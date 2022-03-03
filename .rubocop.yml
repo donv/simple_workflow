@@ -1,22 +1,28 @@
 inherit_from: .rubocop_todo.yml
-require: rubocop-performance
+require:
+  - rubocop-performance
+  - rubocop-rails
 
 AllCops:
-  TargetRubyVersion: 2.3
+  NewCops: enable
+  TargetRubyVersion: 2.7
   DisplayCopNames: true
   DisplayStyleGuide: true
   Include:
-    - '**/Gemfile'
-    - '**/Rakefile'
+    - 'Gemfile'
+    - 'Rakefile'
     - 'config.ru'
     - '*.gemspec'
     - 'exe/*'
+    - 'lib/**/*.rb'
+    - 'test/**/*.rb'
   Exclude:
     - 'classes/**/*'
     - 'gemfiles/vendor/**/*'
     - 'node_modules/**/*'
     - 'public/**/*'
     - 'tmp/**/*'
+    - 'vendor/bundle/**/*'
 
 # Typical construction is
 #   assert_match /something/, test_subject
@@ -24,25 +30,30 @@ Lint/AmbiguousRegexpLiteral:
   Exclude:
     - 'test/**/*.rb'
 
-Layout/AlignHash:
+Layout/AssignmentIndentation:
+  IndentationWidth: 4
+
+Layout/FirstArgumentIndentation:
+  EnforcedStyle: consistent
+  IndentationWidth: 4
+
+Layout/FirstArrayElementIndentation:
+  EnforcedStyle: consistent
+
+Layout/FirstHashElementIndentation:
+  EnforcedStyle: consistent
+
+Layout/HashAlignment:
   EnforcedLastArgumentHashStyle: ignore_implicit
 
-Layout/AlignParameters:
-  EnforcedStyle: with_fixed_indentation
-  IndentationWidth: 4
-
-Layout/IndentFirstArgument:
-  EnforcedStyle: consistent
-  IndentationWidth: 4
-
-Layout/IndentFirstArrayElement:
-  EnforcedStyle: consistent
-
-Layout/IndentFirstHashElement:
-  EnforcedStyle: consistent
-
-Layout/IndentAssignment:
-  IndentationWidth: 4
+Layout/LineLength:
+  Max: 107
+  AllowHeredoc: true
+  AllowURI: true
+  IgnoreCopDirectives: true
+  Exclude:
+    - 'config/initializers/secret_token.rb'
+    - 'db/schema*.rb'
 
 Layout/MultilineMethodCallIndentation:
   EnforcedStyle: indented
@@ -52,21 +63,16 @@ Layout/MultilineOperationIndentation:
   EnforcedStyle: indented
   IndentationWidth: 4
 
+Layout/ParameterAlignment:
+  EnforcedStyle: with_fixed_indentation
+  IndentationWidth: 4
+
 Metrics/BlockLength:
   Exclude:
     - '*.gemspec'
     - 'config/environments/development.rb'
     - 'config/environments/production.rb'
     - 'config/routes.rb'
-    - 'db/schema*.rb'
-
-Metrics/LineLength:
-  Max: 107
-  AllowHeredoc: true
-  AllowURI: true
-  IgnoreCopDirectives: true
-  Exclude:
-    - 'config/initializers/secret_token.rb'
     - 'db/schema*.rb'
 
 Naming/VariableNumber:
