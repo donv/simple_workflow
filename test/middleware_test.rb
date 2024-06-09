@@ -20,10 +20,10 @@ class MiddlewareTest < Minitest::Test
   def test_get_without_detour
     env = env_for('/')
 
-    status, headers, response = @stack.call env
+    status, headers, body = @stack.call env
 
     assert_equal 200, status
-    assert_equal ['app response'], [*response]
+    assert_equal ['app response'], [*body]
     assert_equal [], headers['rack.session'].to_hash.keys
     assert_nil headers['rack.session'].to_hash['detours']
   end
@@ -34,7 +34,7 @@ class MiddlewareTest < Minitest::Test
     status, headers, body = @stack.call(env)
 
     assert_equal 200, status
-    assert_equal ['app response'], body
+    assert_equal ['app response'], [*body]
     assert_equal(%w[session_id detours], headers['rack.session'].to_hash.keys)
     assert_equal([{ 'controller' => 'test' }], headers['rack.session'].to_hash['detours'])
   end
@@ -50,10 +50,10 @@ class MiddlewareTest < Minitest::Test
     last_env = env_for('/?detour[controller]=test_last',
                        'rack.session' => env['rack.session'],
                        'rack.session.options' => env['rack.session.options'])
-    status, env, response = @stack.call last_env
+    status, env, body = @stack.call last_env
 
     assert_equal 200, status
-    assert_equal ['app response'], [*response]
+    assert_equal ['app response'], [*body]
     assert_equal(%w[session_id detours], env['rack.session'].to_hash.keys)
 
     assert_equal(((57..99).to_a + [:last]).map { |i| { 'controller' => "test_#{i}" } },

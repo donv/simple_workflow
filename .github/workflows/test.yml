@@ -21,7 +21,7 @@ jobs:
           ruby-version: '3.3'
           bundler-cache: true # runs 'bundle install' and caches installed gems automatically
       - name: Rubocop
-        run: bundle exec rubocop --auto-correct-all
+        run: bundle exec rubocop --autocorrect-all
   Test:
     runs-on: ubuntu-20.04
     services:
