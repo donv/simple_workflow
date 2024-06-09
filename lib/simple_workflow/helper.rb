@@ -44,7 +44,7 @@ module SimpleWorkflow::Helper
     end
     origin.update(origin_options) if origin.keys == [:anchor]
     url = url_for(options)
-    url + (/\?/.match?(url) ? '&' : '?') + origin.to_h.to_param('detour')
+    url + (url.include?('?') ? '&' : '?') + origin.to_h.to_param('detour')
   end
 
   def origin_options

@@ -15,5 +15,5 @@ require 'rubocop/rake_task'
 RuboCop::RakeTask.new
 
 namespace :test do
-  task full: ['rubocop:auto_correct', :test]
+  task full: ['rubocop:autocorrect_all', :test]
 end

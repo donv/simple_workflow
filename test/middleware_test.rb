@@ -23,7 +23,7 @@ class MiddlewareTest < Minitest::Test
     status, headers, response = @stack.call env
 
     assert_equal 200, status
-    assert_equal ['app response'], response
+    assert_equal ['app response'], [*response]
     assert_equal [], headers['rack.session'].to_hash.keys
     assert_nil headers['rack.session'].to_hash['detours']
   end
@@ -53,7 +53,7 @@ class MiddlewareTest < Minitest::Test
     status, env, response = @stack.call last_env
 
     assert_equal 200, status
-    assert_equal ['app response'], response
+    assert_equal ['app response'], [*response]
     assert_equal(%w[session_id detours], env['rack.session'].to_hash.keys)
 
     assert_equal(((57..99).to_a + [:last]).map { |i| { 'controller' => "test_#{i}" } },
@@ -69,7 +69,7 @@ class MiddlewareTest < Minitest::Test
     status, headers, response = @stack.call env
 
     assert_equal 200, status
-    assert_equal ['app response'], response
+    assert_equal ['app response'], [*response]
     assert_equal(%w[session_id], headers['rack.session'].to_hash.keys)
   end
 
@@ -82,7 +82,7 @@ class MiddlewareTest < Minitest::Test
 
     assert_equal 200, status
     assert_match(%r{_session_id=\w+--\w+; path=/; httponly}, headers['set-cookie'])
-    assert_equal ['app response'], response
+    assert_equal ['app response'], [*response]
     assert_equal ['session_id'], headers['rack.session'].to_hash.keys
     assert_nil headers['rack.session'].to_hash['detours']
   end
