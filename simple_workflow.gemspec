@@ -11,11 +11,11 @@ Gem::Specification.new do |s|
   s.summary = 'Add simple breadcrumbs "detour" workflow to Ruby On Rails.'
   s.homepage = 'https://github.com/donv/simple_workflow'
   s.description = 'Expands Ruby on Rails to allow simple breadcrumb detour workflows.'
-  s.required_ruby_version = '>= 2.7', '<4'
+  s.required_ruby_version = '~> 3.1'
   s.licenses = %w[MIT]
   s.files = Dir['[A-Z]*', 'lib/**/*', 'test/**/*']
 
-  s.add_runtime_dependency('rails', '>=6.2', '<8')
+  s.add_runtime_dependency('rails', '>=6.1', '<8')
 
   s.add_development_dependency('rubocop', '~>1.0')
   s.add_development_dependency('rubocop-performance', '~>1.5')

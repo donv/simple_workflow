@@ -82,13 +82,13 @@ class SimpleWorkflow::Middleware
     Rails.logger.warn "simple_workflow: session: #{session.to_hash}"
   end
 
-  if ActionPack::VERSION::MAJOR >= 5
+  if ActionPack::VERSION::MAJOR >= 7
+    def serialize_session(cookie_jar, session)
+      cookie_jar.send(:serializer).send(:dump, session)
+    end
+  else # Rails 6
     def serialize_session(cookie_jar, session)
       cookie_jar.send(:serialize, session)
-    end
-  else # Rails 4.x
-    def serialize_session(cookie_jar, session)
-      cookie_jar.send(:serialize, nil, session)
     end
   end
 
