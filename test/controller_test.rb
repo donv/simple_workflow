@@ -3,7 +3,7 @@
 require_relative 'test_helper'
 require 'rails'
 
-class ControllerTest < MiniTest::Test
+class ControllerTest < Minitest::Test
   include SimpleWorkflow::Controller
   attr_accessor :cookies, :logger, :session
 

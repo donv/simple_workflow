@@ -4,7 +4,7 @@ require_relative 'test_helper'
 require 'action_controller/metal/exceptions'
 require 'test_app'
 
-class HelperTest < MiniTest::Test
+class HelperTest < Minitest::Test
   include SimpleWorkflow::Helper
 
   def test_with_detour

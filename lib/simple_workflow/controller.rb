@@ -66,7 +66,7 @@ module SimpleWorkflow::Controller
 
   def redirect_to_post(options)
     url = url_for options
-    render text: <<~HTML.strip_heredoc, layout: false
+    render text: <<~HTML, layout: false
       <html>
         <body onload="document.getElementById('form').submit()">
           <form id="form" action="#{url}" method="POST">

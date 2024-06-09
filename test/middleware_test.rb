@@ -4,7 +4,7 @@ require_relative 'test_helper'
 require 'simple_workflow/middleware'
 require_relative 'test_app'
 
-class MiddlewareTest < MiniTest::Test
+class MiddlewareTest < Minitest::Test
   def setup
     @app = TestApp.instance
     # @app = ->(env) { [200, env, 'app response'] }
@@ -23,8 +23,7 @@ class MiddlewareTest < MiniTest::Test
     status, headers, response = @stack.call env
 
     assert_equal 200, status
-    assert_equal env, headers
-    assert_equal 'app response', response
+    assert_equal ['app response'], response
     assert_equal [], headers['rack.session'].to_hash.keys
     assert_nil headers['rack.session'].to_hash['detours']
   end
@@ -32,11 +31,10 @@ class MiddlewareTest < MiniTest::Test
   def test_detour
     env = env_for('/?detour[controller]=test')
 
-    status, headers, response = @stack.call env
+    status, headers, body = @stack.call(env)
 
     assert_equal 200, status
-    assert_equal(env, headers)
-    assert_equal 'app response', response
+    assert_equal ['app response'], body
     assert_equal(%w[session_id detours], headers['rack.session'].to_hash.keys)
     assert_equal([{ 'controller' => 'test' }], headers['rack.session'].to_hash['detours'])
   end
@@ -55,7 +53,7 @@ class MiddlewareTest < MiniTest::Test
     status, env, response = @stack.call last_env
 
     assert_equal 200, status
-    assert_equal 'app response', response
+    assert_equal ['app response'], response
     assert_equal(%w[session_id detours], env['rack.session'].to_hash.keys)
 
     assert_equal(((57..99).to_a + [:last]).map { |i| { 'controller' => "test_#{i}" } },
@@ -71,8 +69,7 @@ class MiddlewareTest < MiniTest::Test
     status, headers, response = @stack.call env
 
     assert_equal 200, status
-    assert_equal(env, headers)
-    assert_equal 'app response', response
+    assert_equal ['app response'], response
     assert_equal(%w[session_id], headers['rack.session'].to_hash.keys)
   end
 
@@ -84,8 +81,8 @@ class MiddlewareTest < MiniTest::Test
     status, headers, response = @stack.call env
 
     assert_equal 200, status
-    assert_equal env, headers
-    assert_equal 'app response', response
+    assert_match(%r{_session_id=\w+--\w+; path=/; httponly}, headers['set-cookie'])
+    assert_equal ['app response'], response
     assert_equal ['session_id'], headers['rack.session'].to_hash.keys
     assert_nil headers['rack.session'].to_hash['detours']
   end
@@ -101,9 +98,6 @@ class MiddlewareTest < MiniTest::Test
       ActionDispatch::Cookies::GENERATOR_KEY => ActiveSupport::KeyGenerator.new('secret'),
       ActionDispatch::Cookies::SECRET_KEY_BASE => 'secret',
     }
-    if /^5\.2\./.match?(Rails.version)
-      default_opts[ActionDispatch::Cookies::COOKIES_ROTATIONS] = Struct.new(:encrypted).new([])
-    end
     Rack::MockRequest.env_for(url, default_opts.update(opts))
   end
 end

@@ -14,9 +14,9 @@ class SimpleWorkflow::Middleware
 
   def call(env)
     store_detour_from_params(env)
-    status, headers, response = @app.call(env)
+    status, headers, body = @app.call(env)
     remove_old_detours(env)
-    [status, headers, response]
+    [status, headers, body]
   end
 
   private
@@ -60,12 +60,12 @@ class SimpleWorkflow::Middleware
       session[:detours].shift
       reset_workflow(session) if session[:detours].empty?
     end
-    Rails.logger.debug <<-MSG.strip_heredoc
+    Rails.logger.debug { <<~MSG }
       session: #{session_size} bytes, workflow(#{session[:detours].try(:size) || 0}): #{workflow_size} bytes
     MSG
     return unless session_size > 4096
 
-    Rails.logger.warn <<-MSG.strip_heredoc
+    Rails.logger.warn <<~MSG
       simple_workflow: session exceeds cookie size limit: #{session_size} bytes.  Workflow empty!  Not My Fault!
     MSG
     Rails.logger.warn "simple_workflow: session: #{session.to_hash}"
@@ -75,7 +75,7 @@ class SimpleWorkflow::Middleware
   def remove_discarded_flashes(session)
     return unless (old_flashes = session[:flash] && session[:flash]['discard'])
 
-    Rails.logger.warn <<-MSG.strip_heredoc
+    Rails.logger.warn <<~MSG
       simple_workflow: found discarded flash entries: #{old_flashes}.  Deleting them.
     MSG
     session[:flash]['flashes'] = session[:flash]['flashes'].except(*old_flashes)
